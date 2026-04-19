@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* DGA Design System Tokens */
+:root {
+  /* Primary palette */
+  --dga-green: #26634B;
+  --dga-green-shade: #066058;
+  --dga-green-tint: #27AA8C;
+  --dga-green-pastel: #ACDDC7;
+  --dga-green-dark: #144D3F;
+
+  /* Secondary */
+  --dga-darkblue: #160F3E;
+  --dga-darkblue-shade: #1F255B;
+  --dga-darkblue-tint: #444061;
+  --dga-darkblue-pastel: #CDCCD5;
+
+  --dga-tiffany: #0AEBD7;
+  --dga-tiffany-shade: #046459;
+
+  --dga-blue: #005A96;
+  --dga-blue-pastel: #339EEC;
+
+  /* Neutrals */
+  --dga-black: #000000;
+  --dga-gray: #323232;
+  --dga-gray-shade: #242424;
+  --dga-gray-tint: #595959;
+  --dga-gray-pastel: #EAEAEA;
+  --dga-white: #ffffff;
+
+  /* Feedback */
+  --dga-red: #AF0818;
+  --dga-yellow: #FFC107;
+  --dga-orange: #FD7E14;
+  --dga-success: #006604;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Naskh Arabic', 'thesansplain', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  line-height: 1.5;
+}
+
+html[dir="rtl"] body {
+  font-family: 'Noto Naskh Arabic', sans-serif;
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  font-family: 'Noto Naskh Arabic', sans-serif;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f8f9fa; }
+::-webkit-scrollbar-thumb { background: var(--dga-green); border-radius: 3px; }
+
+/* DGA-compatible animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes progressPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
