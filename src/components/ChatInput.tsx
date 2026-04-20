@@ -48,7 +48,7 @@ export default function ChatInput({ lang, onSubmit }: ChatInputProps) {
         }}
       >
         <img
-          src="/assets/rashid-avatar.jpg"
+          src="/assets/rashid-avatar.png"
           alt="Rashid"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />

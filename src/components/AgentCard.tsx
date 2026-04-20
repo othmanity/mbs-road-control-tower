@@ -37,7 +37,7 @@ export default function AgentCard({ lang }: AgentCardProps) {
             border: "2px solid rgba(255,255,255,0.3)",
           }}
         >
-          <img src="/assets/rashid-avatar.jpg" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src="/assets/rashid-avatar.png" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </div>
         <div style={{ fontSize: 18, fontWeight: 700 }}>{isEn ? "Rashid" : "راشد"}</div>
         <div style={{ fontSize: 12, opacity: 0.75 }}>

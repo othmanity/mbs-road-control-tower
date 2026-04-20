@@ -170,7 +170,7 @@ export default function WorkflowTracker({ lang, agentState, request }: WorkflowT
                     border: `2px solid ${meta.color}`, flexShrink: 0, marginTop: 2,
                   }}
                 >
-                  <img src="/assets/rashid-avatar.jpg" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <img src="/assets/rashid-avatar.png" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
@@ -340,7 +340,7 @@ export default function WorkflowTracker({ lang, agentState, request }: WorkflowT
                 border: "2px solid #26634B", flexShrink: 0, marginTop: 2,
               }}
             >
-              <img src="/assets/rashid-avatar.jpg" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img src="/assets/rashid-avatar.png" alt="Rashid" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
             <div>
               <div style={{ fontSize: 11, color: "#595959", marginBottom: 4, fontWeight: 600 }}>
