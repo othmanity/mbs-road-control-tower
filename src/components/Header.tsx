@@ -1,9 +1,13 @@
+import type { AuthUser } from "../auth/AuthContext";
+
 interface HeaderProps {
   lang: "en" | "ar";
   onToggleLang: () => void;
+  user?: AuthUser;
+  onLogout?: () => void;
 }
 
-export default function Header({ lang, onToggleLang }: HeaderProps) {
+export default function Header({ lang, onToggleLang, user, onLogout }: HeaderProps) {
   return (
     <header
       className="govsa-header"
@@ -46,8 +50,42 @@ export default function Header({ lang, onToggleLang }: HeaderProps) {
         </div>
       </div>
 
-      {/* Right: Level badge + Lang toggle */}
+      {/* Right: User badge + Lang toggle + Logout */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {user && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              color: "#fff",
+              fontSize: 13,
+              padding: "4px 12px",
+              background: "rgba(255,255,255,0.08)",
+              borderRadius: 48,
+            }}
+          >
+            <div
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 12,
+                fontWeight: 700,
+              }}
+            >
+              {user.username[0].toUpperCase()}
+            </div>
+            <span style={{ fontWeight: 600 }}>
+              {lang === "en" ? user.displayName : user.displayNameAr}
+            </span>
+          </div>
+        )}
+
         <button
           onClick={onToggleLang}
           style={{
@@ -64,6 +102,25 @@ export default function Header({ lang, onToggleLang }: HeaderProps) {
         >
           {lang === "en" ? "عربي" : "EN"}
         </button>
+
+        {user && onLogout && (
+          <button
+            onClick={onLogout}
+            style={{
+              background: "rgba(255,255,255,0.12)",
+              border: "1px solid rgba(255,255,255,0.25)",
+              borderRadius: 48,
+              padding: "6px 18px",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily: "'Noto Naskh Arabic', sans-serif",
+              fontWeight: 600,
+            }}
+          >
+            {lang === "en" ? "Logout" : "خروج"}
+          </button>
+        )}
       </div>
     </header>
   );
