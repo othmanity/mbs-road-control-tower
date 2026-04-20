@@ -332,7 +332,7 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
           return null;
         })}
 
-        {/* Inline choice prompt */}
+        {/* Inline choice prompt (auto-advances) */}
         {pendingChoice && pendingChoice.options && (
           <div
             key={`choice-${pendingChoice.id}`}
@@ -343,10 +343,12 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
               border: "1.5px solid #26634B50",
               borderRadius: 8,
               padding: "14px 16px",
+              overflow: "hidden",
+              position: "relative",
             }}
           >
             <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8, color: "#26634B", display: "flex", alignItems: "center", gap: 4 }}>
-              🖐 {lang === "en" ? "Your input needed" : "يتطلب موافقتك"}
+              🖐 {lang === "en" ? "Approve to continue" : "وافق للمتابعة"}
             </div>
             <div style={{ fontSize: 14, color: "#323232", marginBottom: 12, lineHeight: 1.5 }}>
               {lang === "en" ? pendingChoice.textEn : pendingChoice.textAr}
@@ -377,6 +379,23 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
                 </button>
               ))}
             </div>
+            <div style={{ marginTop: 10, fontSize: 10, color: "#595959", display: "flex", alignItems: "center", gap: 6 }}>
+              <span>{lang === "en" ? "Auto-selecting recommended…" : "سيتم اختيار الموصى به تلقائياً…"}</span>
+            </div>
+            <div
+              key={`bar-${pendingChoice.id}`}
+              style={{
+                position: "absolute",
+                left: 0,
+                bottom: 0,
+                height: 3,
+                width: "100%",
+                background: "#26634B",
+                transformOrigin: "left center",
+                animation: "choiceCountdown 3.5s linear forwards",
+              }}
+            />
+            <style>{`@keyframes choiceCountdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }`}</style>
           </div>
         )}
 

@@ -9,7 +9,10 @@ export interface AgentState {
   isThinking: boolean;
   currentMessageIndex: number;
   pendingChoice: AgentMessage | null;
+  choiceAutoPickAt: number | null;
 }
+
+const AUTO_PICK_MS = 3500;
 
 export function useAgentSimulation() {
   const [state, setState] = useState<AgentState>({
@@ -18,9 +21,20 @@ export function useAgentSimulation() {
     isThinking: false,
     currentMessageIndex: -1,
     pendingChoice: null,
+    choiceAutoPickAt: null,
   });
 
   const timerRef = useRef<number | null>(null);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const submitChoiceRef = useRef<(e: string, a: string) => void>(() => {});
+
+  const clearTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   const showNextMessage = useCallback((index: number) => {
     if (index >= conversationFlow.length) {
@@ -30,7 +44,6 @@ export function useAgentSimulation() {
 
     const msg = conversationFlow[index];
 
-    // Interactive choice — pause and wait for the user
     if (msg.type === "user-choice") {
       setState((prev) => ({
         ...prev,
@@ -38,7 +51,17 @@ export function useAgentSimulation() {
         isThinking: false,
         currentMessageIndex: index,
         pendingChoice: msg,
+        choiceAutoPickAt: Date.now() + AUTO_PICK_MS,
       }));
+      const auto = msg.options?.find((o) => o.recommended) || msg.options?.[0];
+      if (auto) {
+        clearTimer();
+        timerRef.current = window.setTimeout(() => {
+          if (stateRef.current.pendingChoice?.id === msg.id) {
+            submitChoiceRef.current(auto.labelEn, auto.labelAr);
+          }
+        }, AUTO_PICK_MS);
+      }
       return;
     }
 
@@ -48,7 +71,6 @@ export function useAgentSimulation() {
         isThinking: true,
         currentMessageIndex: index,
       }));
-
       timerRef.current = window.setTimeout(() => {
         setState((prev) => ({
           ...prev,
@@ -69,50 +91,52 @@ export function useAgentSimulation() {
 
   const submitChoice = useCallback(
     (choiceLabelEn: string, choiceLabelAr: string) => {
-      let nextIndex = -1;
-      setState((prev) => {
-        if (prev.phase !== "waiting" || !prev.pendingChoice) return prev;
-        nextIndex = prev.currentMessageIndex + 1;
-        const picked: AgentMessage = {
-          id: prev.pendingChoice.id * 10 + 1,
-          type: "user-prompt",
-          textEn: choiceLabelEn,
-          textAr: choiceLabelAr,
-          delay: 0,
-        };
-        return {
-          ...prev,
-          phase: "running",
-          pendingChoice: null,
-          visibleMessages: [...prev.visibleMessages, picked],
-        };
-      });
-      if (nextIndex >= 0) {
-        timerRef.current = window.setTimeout(() => showNextMessage(nextIndex), 800);
-      }
+      const current = stateRef.current;
+      if (current.phase !== "waiting" || !current.pendingChoice) return;
+      clearTimer();
+      const idx = current.currentMessageIndex;
+      const picked: AgentMessage = {
+        id: current.pendingChoice.id * 10 + 1,
+        type: "user-prompt",
+        textEn: choiceLabelEn,
+        textAr: choiceLabelAr,
+        delay: 0,
+      };
+      setState((prev) => ({
+        ...prev,
+        phase: "running",
+        pendingChoice: null,
+        choiceAutoPickAt: null,
+        visibleMessages: [...prev.visibleMessages, picked],
+      }));
+      timerRef.current = window.setTimeout(() => showNextMessage(idx + 1), 700);
     },
     [showNextMessage]
   );
+  submitChoiceRef.current = submitChoice;
 
   const startSimulation = useCallback(() => {
+    clearTimer();
     setState({
       phase: "running",
       visibleMessages: [],
       isThinking: false,
       currentMessageIndex: -1,
       pendingChoice: null,
+      choiceAutoPickAt: null,
     });
     timerRef.current = window.setTimeout(() => showNextMessage(0), 600);
   }, [showNextMessage]);
 
   const reset = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+    clearTimer();
     setState({
       phase: "idle",
       visibleMessages: [],
       isThinking: false,
       currentMessageIndex: -1,
       pendingChoice: null,
+      choiceAutoPickAt: null,
     });
   }, []);
 
