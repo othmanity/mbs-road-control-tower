@@ -87,12 +87,13 @@ export type SubAgent = "orchestrator" | "retrieval" | "data-quality" | "spatial"
 
 export interface AgentMessage {
   id: number;
-  type: "rashid" | "system" | "user-prompt" | "agent-handoff" | "memory" | "planning" | "feedback" | "tool-call";
+  type: "rashid" | "system" | "user-prompt" | "agent-handoff" | "memory" | "planning" | "feedback" | "tool-call" | "user-choice";
   subAgent?: SubAgent;
   textEn: string;
   textAr: string;
   delay: number;
   thinking?: boolean;
+  options?: { labelEn: string; labelAr: string; recommended?: boolean }[];
 }
 
 export const subAgentMeta: Record<SubAgent, { labelEn: string; labelAr: string; color: string; icon: string }> = {
@@ -133,10 +134,15 @@ export const conversationFlow: AgentMessage[] = [
   },
   {
     id: 4,
-    type: "user-prompt",
-    textEn: "Yes, proceed.",
-    textAr: "نعم، تابع.",
-    delay: 1500,
+    type: "user-choice",
+    textEn: "Approve scope?",
+    textAr: "اعتماد النطاق؟",
+    delay: 600,
+    options: [
+      { labelEn: "Yes, proceed", labelAr: "نعم، تابع", recommended: true },
+      { labelEn: "Add Taif too", labelAr: "أضف الطائف أيضاً" },
+      { labelEn: "Only top 3 cities", labelAr: "أهم 3 مدن فقط" },
+    ],
   },
 
   // 2. Memory check
@@ -241,6 +247,18 @@ export const conversationFlow: AgentMessage[] = [
     textEn: "Cross-checking results against memory... Riyadh growth (2.91%) is consistent with Q2 trend. Dammam (4.07%) is notably higher — flagging for human review.",
     textAr: "مراجعة النتائج مقابل الذاكرة... نمو الرياض (2.91%) متسق مع اتجاه الربع الثاني. الدمام (4.07%) أعلى بشكل ملحوظ — يتم تمييزه للمراجعة البشرية.",
     delay: 2000,
+  },
+  {
+    id: 161,
+    type: "user-choice",
+    textEn: "How should I handle the Dammam outlier?",
+    textAr: "كيف أتعامل مع الدمام كحالة استثنائية؟",
+    delay: 600,
+    options: [
+      { labelEn: "Deep-dive Dammam", labelAr: "تحليل عميق للدمام" },
+      { labelEn: "Flag but continue", labelAr: "تمييز مع المتابعة", recommended: true },
+      { labelEn: "Continue as-is", labelAr: "تابع كما هو" },
+    ],
   },
 
   // 7. Handoff to Reporting Agent

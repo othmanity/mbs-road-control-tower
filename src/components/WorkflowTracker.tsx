@@ -6,6 +6,7 @@ interface WorkflowTrackerProps {
   lang: "en" | "ar";
   agentState: AgentState;
   request: string;
+  onChoice: (labelEn: string, labelAr: string) => void;
 }
 
 function TypingIndicator() {
@@ -100,15 +101,15 @@ function ActiveAgentsPanel({ visibleMessages, lang }: { visibleMessages: AgentMe
   );
 }
 
-export default function WorkflowTracker({ lang, agentState, request }: WorkflowTrackerProps) {
-  const { visibleMessages, isThinking, phase } = agentState;
+export default function WorkflowTracker({ lang, agentState, request, onChoice }: WorkflowTrackerProps) {
+  const { visibleMessages, isThinking, phase, pendingChoice } = agentState;
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
-  }, [visibleMessages, isThinking]);
+  }, [visibleMessages, isThinking, pendingChoice]);
 
   const totalSteps = conversationFlow.filter((m) => m.type === "rashid").length;
   const completedSteps = visibleMessages.filter((m) => m.type === "rashid").length;
@@ -331,6 +332,54 @@ export default function WorkflowTracker({ lang, agentState, request }: WorkflowT
           return null;
         })}
 
+        {/* Inline choice prompt */}
+        {pendingChoice && pendingChoice.options && (
+          <div
+            key={`choice-${pendingChoice.id}`}
+            style={{
+              marginLeft: 50,
+              animation: "fadeInUp 0.3s ease-out",
+              background: "#fff",
+              border: "1.5px solid #26634B50",
+              borderRadius: 8,
+              padding: "14px 16px",
+            }}
+          >
+            <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8, color: "#26634B", display: "flex", alignItems: "center", gap: 4 }}>
+              🖐 {lang === "en" ? "Your input needed" : "يتطلب موافقتك"}
+            </div>
+            <div style={{ fontSize: 14, color: "#323232", marginBottom: 12, lineHeight: 1.5 }}>
+              {lang === "en" ? pendingChoice.textEn : pendingChoice.textAr}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {pendingChoice.options.map((opt) => (
+                <button
+                  key={opt.labelEn}
+                  onClick={() => onChoice(opt.labelEn, opt.labelAr)}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 48,
+                    border: opt.recommended ? "none" : "1.5px solid #26634B",
+                    background: opt.recommended ? "#26634B" : "#fff",
+                    color: opt.recommended ? "#fff" : "#26634B",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    fontFamily: "'Noto Naskh Arabic', sans-serif",
+                  }}
+                >
+                  {lang === "en" ? opt.labelEn : opt.labelAr}
+                  {opt.recommended && (
+                    <span style={{ fontSize: 10, marginLeft: 6, opacity: 0.85 }}>
+                      {lang === "en" ? "• recommended" : "• موصى به"}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Thinking indicator */}
         {isThinking && (
           <div style={{ display: "flex", gap: 12, alignItems: "flex-start", animation: "fadeInUp 0.3s ease-out" }}>
@@ -366,14 +415,15 @@ export default function WorkflowTracker({ lang, agentState, request }: WorkflowT
           <div
             style={{
               width: 8, height: 8, borderRadius: "50%",
-              background: phase === "complete" ? "#006604" : "#FFC107",
-              animation: phase === "running" ? "progressPulse 1.5s infinite" : "none",
+              background: phase === "complete" ? "#006604" : phase === "waiting" ? "#005A96" : "#FFC107",
+              animation: phase === "running" || phase === "waiting" ? "progressPulse 1.5s infinite" : "none",
             }}
           />
           <span style={{ fontSize: 13, color: "#595959" }}>
-            {phase === "running"
-              ? lang === "en" ? "Rashid is orchestrating..." : "راشد ينسق العمل..."
-              : lang === "en" ? "All agents completed" : "اكتمل عمل جميع الوكلاء"}
+            {phase === "running" && (lang === "en" ? "Rashid is orchestrating..." : "راشد ينسق العمل...")}
+            {phase === "waiting" && (lang === "en" ? "Awaiting your input" : "بانتظار إدخالك")}
+            {phase === "complete" && (lang === "en" ? "All agents completed" : "اكتمل عمل جميع الوكلاء")}
+            {phase === "idle" && (lang === "en" ? "Idle" : "في وضع الانتظار")}
           </span>
         </div>
         <span style={{ fontSize: 12, color: "#595959" }}>

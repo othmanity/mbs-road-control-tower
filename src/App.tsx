@@ -13,7 +13,7 @@ function App() {
   const [lang, setLang] = useState<"en" | "ar">("en");
   const [screen, setScreen] = useState<Screen>("chat");
   const [request, setRequest] = useState("");
-  const { state: agentState, startSimulation, reset: resetAgent } = useAgentSimulation();
+  const { state: agentState, startSimulation, submitChoice, reset: resetAgent } = useAgentSimulation();
   const { user, logout } = useAuth();
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
@@ -62,7 +62,7 @@ function App() {
       {screen === "chat" && <ChatInput lang={lang} onSubmit={handleSubmit} />}
 
       {screen === "workflow" && (
-        <WorkflowTracker lang={lang} agentState={agentState} request={request} />
+        <WorkflowTracker lang={lang} agentState={agentState} request={request} onChoice={submitChoice} />
       )}
 
       {screen === "results" && (

@@ -3,6 +3,7 @@ import MapView from "./MapView";
 import StatsTable from "./StatsTable";
 import GrowthChart from "./GrowthChart";
 import AgentCard from "./AgentCard";
+import { exportAnalysisReport } from "../utils/exportReport";
 
 interface ResultsDashboardProps {
   lang: "en" | "ar";
@@ -13,6 +14,20 @@ interface ResultsDashboardProps {
 export default function ResultsDashboard({ lang, request, onReset }: ResultsDashboardProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [showAgentCard, setShowAgentCard] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (exporting) return;
+    setExporting(true);
+    try {
+      await exportAnalysisReport({ request, lang });
+    } catch (err) {
+      console.error("PDF export failed", err);
+      alert(lang === "en" ? "Failed to export PDF" : "فشل تصدير الملف");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <div style={{ minHeight: "calc(100vh - 75px)", padding: 20, background: "#f8f9fa" }}>
@@ -43,19 +58,23 @@ export default function ResultsDashboard({ lang, request, onReset }: ResultsDash
             {lang === "en" ? "Rashid Profile" : "ملف راشد"}
           </button>
           <button
+            onClick={handleExport}
+            disabled={exporting}
             style={{
               padding: "8px 20px",
               borderRadius: 48,
               border: "none",
-              background: "#26634B",
+              background: exporting ? "#9DB5AC" : "#26634B",
               color: "#fff",
               fontSize: 13,
               fontWeight: 600,
-              cursor: "pointer",
+              cursor: exporting ? "not-allowed" : "pointer",
               fontFamily: "'Noto Naskh Arabic', sans-serif",
             }}
           >
-            {lang === "en" ? "Export PDF" : "تصدير PDF"}
+            {exporting
+              ? lang === "en" ? "Preparing..." : "جارٍ التحضير..."
+              : lang === "en" ? "Export PDF" : "تصدير PDF"}
           </button>
           <button
             onClick={onReset}
@@ -85,14 +104,16 @@ export default function ResultsDashboard({ lang, request, onReset }: ResultsDash
         }}
       >
         {/* Map */}
-        <div style={{ height: 500, borderRadius: 8, overflow: "hidden", border: "1px solid #EAEAEA" }}>
+        <div id="map-container" style={{ height: 500, borderRadius: 8, overflow: "hidden", border: "1px solid #EAEAEA" }}>
           <MapView lang={lang} selectedCity={selectedCity} onSelectCity={setSelectedCity} />
         </div>
 
         {/* Stats column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <StatsTable lang={lang} selectedCity={selectedCity} onSelectCity={setSelectedCity} />
-          <GrowthChart lang={lang} selectedCity={selectedCity} onSelectCity={setSelectedCity} />
+          <div id="growth-chart">
+            <GrowthChart lang={lang} selectedCity={selectedCity} onSelectCity={setSelectedCity} />
+          </div>
         </div>
 
         {/* Agent card */}

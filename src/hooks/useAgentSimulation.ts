@@ -1,13 +1,14 @@
 import { useState, useCallback, useRef } from "react";
 import { conversationFlow, type AgentMessage } from "../data/mockData";
 
-export type AgentPhase = "idle" | "running" | "complete";
+export type AgentPhase = "idle" | "running" | "waiting" | "complete";
 
 export interface AgentState {
   phase: AgentPhase;
   visibleMessages: AgentMessage[];
   isThinking: boolean;
   currentMessageIndex: number;
+  pendingChoice: AgentMessage | null;
 }
 
 export function useAgentSimulation() {
@@ -16,6 +17,7 @@ export function useAgentSimulation() {
     visibleMessages: [],
     isThinking: false,
     currentMessageIndex: -1,
+    pendingChoice: null,
   });
 
   const timerRef = useRef<number | null>(null);
@@ -28,7 +30,18 @@ export function useAgentSimulation() {
 
     const msg = conversationFlow[index];
 
-    // If this message has a thinking phase, show thinking first
+    // Interactive choice — pause and wait for the user
+    if (msg.type === "user-choice") {
+      setState((prev) => ({
+        ...prev,
+        phase: "waiting",
+        isThinking: false,
+        currentMessageIndex: index,
+        pendingChoice: msg,
+      }));
+      return;
+    }
+
     if (msg.thinking) {
       setState((prev) => ({
         ...prev,
@@ -36,28 +49,50 @@ export function useAgentSimulation() {
         currentMessageIndex: index,
       }));
 
-      // After a brief thinking delay, reveal the message
       timerRef.current = window.setTimeout(() => {
         setState((prev) => ({
           ...prev,
           isThinking: false,
           visibleMessages: [...prev.visibleMessages, msg],
         }));
-
-        // Schedule next message
         timerRef.current = window.setTimeout(() => showNextMessage(index + 1), msg.delay);
-      }, 1500 + Math.random() * 800); // Thinking duration: 1.5-2.3s
+      }, 1500 + Math.random() * 800);
     } else {
-      // No thinking -- just show the message
       setState((prev) => ({
         ...prev,
         currentMessageIndex: index,
         visibleMessages: [...prev.visibleMessages, msg],
       }));
-
       timerRef.current = window.setTimeout(() => showNextMessage(index + 1), msg.delay);
     }
   }, []);
+
+  const submitChoice = useCallback(
+    (choiceLabelEn: string, choiceLabelAr: string) => {
+      let nextIndex = -1;
+      setState((prev) => {
+        if (prev.phase !== "waiting" || !prev.pendingChoice) return prev;
+        nextIndex = prev.currentMessageIndex + 1;
+        const picked: AgentMessage = {
+          id: prev.pendingChoice.id * 10 + 1,
+          type: "user-prompt",
+          textEn: choiceLabelEn,
+          textAr: choiceLabelAr,
+          delay: 0,
+        };
+        return {
+          ...prev,
+          phase: "running",
+          pendingChoice: null,
+          visibleMessages: [...prev.visibleMessages, picked],
+        };
+      });
+      if (nextIndex >= 0) {
+        timerRef.current = window.setTimeout(() => showNextMessage(nextIndex), 800);
+      }
+    },
+    [showNextMessage]
+  );
 
   const startSimulation = useCallback(() => {
     setState({
@@ -65,6 +100,7 @@ export function useAgentSimulation() {
       visibleMessages: [],
       isThinking: false,
       currentMessageIndex: -1,
+      pendingChoice: null,
     });
     timerRef.current = window.setTimeout(() => showNextMessage(0), 600);
   }, [showNextMessage]);
@@ -76,8 +112,9 @@ export function useAgentSimulation() {
       visibleMessages: [],
       isThinking: false,
       currentMessageIndex: -1,
+      pendingChoice: null,
     });
   }, []);
 
-  return { state, startSimulation, reset };
+  return { state, startSimulation, submitChoice, reset };
 }
