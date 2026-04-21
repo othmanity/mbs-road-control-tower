@@ -227,14 +227,6 @@ export const conversationFlow: AgentMessage[] = [
     delay: 1000,
   },
   {
-    id: 7,
-    type: "tool-call",
-    subAgent: "retrieval",
-    textEn: "SDI.search(type='urban_boundary', cities=['Riyadh','Jeddah','Dammam','Makkah','Madinah'], years=[2024,2025])",
-    textAr: "SDI.search(type='urban_boundary', cities=['الرياض','جدة','الدمام','مكة','المدينة'], years=[2024,2025])",
-    delay: 2000,
-  },
-  {
     id: 8,
     type: "rashid",
     subAgent: "retrieval",
@@ -252,14 +244,6 @@ export const conversationFlow: AgentMessage[] = [
     textEn: "Handing off to Data Quality Agent for validation...",
     textAr: "تسليم المهمة لوكيل جودة البيانات للتحقق...",
     delay: 1000,
-  },
-  {
-    id: 10,
-    type: "tool-call",
-    subAgent: "data-quality",
-    textEn: "validate(shapefiles=10, checks=['CRS_alignment','completeness','temporal_consistency'])",
-    textAr: "validate(shapefiles=10, checks=['محاذاة_الإحداثيات','الاكتمال','الاتساق_الزمني'])",
-    delay: 2000,
   },
   {
     id: 11,
@@ -286,14 +270,6 @@ export const conversationFlow: AgentMessage[] = [
     textAr: "أجري تحليل التراكب الآن — محاذاة حدود 2024 و2025 وحساب الفروقات المكانية ومناطق التوسع لكل مدينة...",
     delay: 2000,
     thinking: true,
-  },
-  {
-    id: 14,
-    type: "tool-call",
-    subAgent: "spatial",
-    textEn: "geoprocessing.overlay(layer_2024, layer_2025, method='symmetric_difference') → expansion_zones",
-    textAr: "geoprocessing.overlay(طبقة_2024, طبقة_2025, method='symmetric_difference') → مناطق_التوسع",
-    delay: 3000,
   },
   {
     id: 15,
