@@ -6,9 +6,9 @@ interface ChatInputProps {
 }
 
 const quickActions = [
-  { en: "Urban Expansion", ar: "التوسع العمراني" },
-  { en: "Land Use Change", ar: "تغير استخدام الأراضي" },
-  { en: "Infrastructure Gap", ar: "فجوة البنية التحتية" },
+  { en: "Urban Expansion", ar: "التوسع العمراني", disabled: false },
+  { en: "Land Use Change", ar: "تغير استخدام الأراضي", disabled: true },
+  { en: "Infrastructure Gap", ar: "فجوة البنية التحتية", disabled: true },
 ];
 
 export default function ChatInput({ lang, onSubmit }: ChatInputProps) {
@@ -128,7 +128,9 @@ export default function ChatInput({ lang, onSubmit }: ChatInputProps) {
           {quickActions.map((action, i) => (
             <button
               key={i}
-              onClick={() => setInput(lang === "en" ? action.en : action.ar)}
+              onClick={() => !action.disabled && setInput(lang === "en" ? action.en : action.ar)}
+              disabled={action.disabled}
+              title={action.disabled ? (lang === "en" ? "Coming soon" : "قريباً") : undefined}
               style={{
                 padding: "5px 16px",
                 borderRadius: 48,
@@ -136,9 +138,10 @@ export default function ChatInput({ lang, onSubmit }: ChatInputProps) {
                 background: i === 0 ? "rgba(38,99,75,0.08)" : "#fff",
                 color: i === 0 ? "#26634B" : "#595959",
                 fontSize: 13,
-                cursor: "pointer",
+                cursor: action.disabled ? "not-allowed" : "pointer",
                 fontFamily: "'Noto Naskh Arabic', sans-serif",
                 fontWeight: i === 0 ? 600 : 400,
+                opacity: action.disabled ? 0.45 : 1,
                 transition: "all 0.15s ease-in-out",
               }}
             >
