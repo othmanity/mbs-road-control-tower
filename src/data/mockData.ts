@@ -16,7 +16,70 @@ export const cityStats: CityStats[] = [
   { name: "Dammam", nameAr: "الدمام", area2024: 540, area2025: 562, expansion: 22, growthPct: 4.07, center: [26.3927, 49.9777] },
   { name: "Makkah", nameAr: "مكة المكرمة", area2024: 850, area2025: 871, expansion: 21, growthPct: 2.47, center: [21.3891, 39.8579] },
   { name: "Madinah", nameAr: "المدينة المنورة", area2024: 620, area2025: 638, expansion: 18, growthPct: 2.9, center: [24.4539, 39.6142] },
+  { name: "Al-Ahsa", nameAr: "الأحساء", area2024: 1420, area2025: 1472, expansion: 52, growthPct: 3.66, center: [25.3647, 49.5879] },
 ];
+
+// Sub-area level detail (zoomed-in settlement inside a city)
+export interface SubArea {
+  name: string;
+  nameAr: string;
+  parent: string;
+  baselineYear: number;
+  currentYear: number;
+  population: { baseline: number; current: number; growthPct: number };
+  residentialHa: { baseline: number; current: number; growthPct: number };
+  vacantHa: { baseline: number; current: number; growthPct: number };
+  residentialPlusVacantHa: { baseline: number; current: number; growthPct: number };
+  densityPerHa: { baseline: number; current: number; growthPct: number };
+  recommendation: {
+    direction: string;
+    directionAr: string;
+    hectares: number;
+    confidence: "Low" | "Moderate" | "High";
+  };
+  planContext: {
+    planNameEn: string;
+    planNameAr: string;
+    planNumber: string;
+    municipalityEn: string;
+    municipalityAr: string;
+  };
+  reportUrl: string;
+}
+
+export const subAreas: SubArea[] = [
+  {
+    name: "Al-Seh",
+    nameAr: "السيح",
+    parent: "Al-Ahsa",
+    baselineYear: 2020,
+    currentYear: 2025,
+    population: { baseline: 895, current: 2830, growthPct: 216.20 },
+    residentialHa: { baseline: 70, current: 108, growthPct: 54.29 },
+    vacantHa: { baseline: 22, current: 23, growthPct: 4.55 },
+    residentialPlusVacantHa: { baseline: 92, current: 131, growthPct: 42.39 },
+    densityPerHa: { baseline: 9.73, current: 21.60, growthPct: 122.06 },
+    recommendation: {
+      direction: "West",
+      directionAr: "غرباً",
+      hectares: 15,
+      confidence: "Moderate",
+    },
+    planContext: {
+      planNameEn: "Al-Seh Hijra Plan",
+      planNameAr: "تخطيط هجرة السيح",
+      planNumber: "4/646",
+      municipalityEn: "Al-Jafr",
+      municipalityAr: "الجفر",
+    },
+    reportUrl: "/reports/al-seh-urban-expansion.pdf",
+  },
+];
+
+export function getSubAreasForCity(cityName: string | null): SubArea[] {
+  if (!cityName) return [];
+  return subAreas.filter((a) => a.parent === cityName);
+}
 
 function generateCityBoundary(center: [number, number], radiusKm: number, points = 36, irregularity = 0.15): [number, number][] {
   const coords: [number, number][] = [];

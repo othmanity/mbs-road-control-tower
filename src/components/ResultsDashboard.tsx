@@ -3,7 +3,9 @@ import MapView from "./MapView";
 import StatsTable from "./StatsTable";
 import GrowthChart from "./GrowthChart";
 import AgentCard from "./AgentCard";
+import SubAreaDetail from "./SubAreaDetail";
 import { exportAnalysisReport } from "../utils/exportReport";
+import { getSubAreasForCity } from "../data/mockData";
 
 interface ResultsDashboardProps {
   lang: "en" | "ar";
@@ -123,6 +125,11 @@ export default function ResultsDashboard({ lang, request, onReset }: ResultsDash
           </div>
         )}
       </div>
+
+      {/* Sub-area detail (e.g., Al-Seh under Al-Ahsa) */}
+      {getSubAreasForCity(selectedCity).map((area) => (
+        <SubAreaDetail key={area.name} lang={lang} area={area} />
+      ))}
 
       {/* Footer status - DGA style */}
       <div
