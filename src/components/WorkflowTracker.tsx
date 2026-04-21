@@ -315,12 +315,16 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
           // --- User prompt ---
           if (msg.type === "user-prompt") {
             return (
-              <div key={msg.id} style={{ display: "flex", justifyContent: "flex-end", animation: "fadeInUp 0.3s ease-out" }}>
+              <div key={msg.id} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, animation: "fadeInUp 0.3s ease-out" }}>
+                <span style={{ fontSize: 11, color: "#595959", fontWeight: 600, marginRight: 6 }}>
+                  {lang === "en" ? "You" : "أنت"}
+                </span>
                 <div
                   style={{
                     background: "#160F3E", color: "#fff",
                     borderRadius: "8px 2px 8px 8px", padding: "10px 18px",
-                    fontSize: 14, maxWidth: "60%",
+                    fontSize: 14, maxWidth: "70%",
+                    boxShadow: "0 2px 8px rgba(22,15,62,0.18)",
                   }}
                 >
                   {lang === "en" ? msg.textEn : msg.textAr}

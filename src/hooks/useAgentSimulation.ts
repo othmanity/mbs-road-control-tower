@@ -109,7 +109,7 @@ export function useAgentSimulation() {
         choiceAutoPickAt: null,
         visibleMessages: [...prev.visibleMessages, picked],
       }));
-      timerRef.current = window.setTimeout(() => showNextMessage(idx + 1), 700);
+      timerRef.current = window.setTimeout(() => showNextMessage(idx + 1), 1500);
     },
     [showNextMessage]
   );
