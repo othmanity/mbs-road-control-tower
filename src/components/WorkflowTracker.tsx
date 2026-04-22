@@ -337,54 +337,55 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
         })}
 
         {/* Inline choice prompt (auto-advances) */}
-        {pendingChoice && pendingChoice.options && (
+        {pendingChoice && pendingChoice.options && pendingChoice.options.length > 0 && (
           <div
             key={`choice-${pendingChoice.id}`}
             style={{
               marginLeft: 50,
-              animation: "fadeInUp 0.3s ease-out",
               background: "#fff",
-              border: "1.5px solid #26634B50",
+              border: "1.5px solid #26634B80",
               borderRadius: 8,
-              padding: "14px 16px",
-              overflow: "hidden",
+              boxShadow: "0 2px 10px rgba(38,99,75,0.1)",
               position: "relative",
+              animation: "fadeInUp 0.3s ease-out",
             }}
           >
-            <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8, color: "#26634B", display: "flex", alignItems: "center", gap: 4 }}>
-              🖐 {lang === "en" ? "Approve to continue" : "وافق للمتابعة"}
-            </div>
-            <div style={{ fontSize: 14, color: "#323232", marginBottom: 12, lineHeight: 1.5 }}>
-              {lang === "en" ? pendingChoice.textEn : pendingChoice.textAr}
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {pendingChoice.options.map((opt) => (
-                <button
-                  key={opt.labelEn}
-                  onClick={() => onChoice(opt.labelEn, opt.labelAr)}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 48,
-                    border: opt.recommended ? "none" : "1.5px solid #26634B",
-                    background: opt.recommended ? "#26634B" : "#fff",
-                    color: opt.recommended ? "#fff" : "#26634B",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    fontFamily: "'Noto Naskh Arabic', sans-serif",
-                  }}
-                >
-                  {lang === "en" ? opt.labelEn : opt.labelAr}
-                  {opt.recommended && (
-                    <span style={{ fontSize: 10, marginLeft: 6, opacity: 0.85 }}>
-                      {lang === "en" ? "• recommended" : "• موصى به"}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-            <div style={{ marginTop: 10, fontSize: 10, color: "#595959", display: "flex", alignItems: "center", gap: 6 }}>
-              <span>{lang === "en" ? "Auto-selecting recommended…" : "سيتم اختيار الموصى به تلقائياً…"}</span>
+            <div style={{ padding: "14px 16px 18px" }}>
+              <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8, color: "#26634B" }}>
+                🖐 {lang === "en" ? "Approve to continue" : "وافق للمتابعة"}
+              </div>
+              <div style={{ fontSize: 14, color: "#160F3E", fontWeight: 600, marginBottom: 12, lineHeight: 1.5 }}>
+                {lang === "en" ? pendingChoice.textEn : pendingChoice.textAr}
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
+                {pendingChoice.options.map((opt) => (
+                  <button
+                    key={opt.labelEn}
+                    onClick={() => onChoice(opt.labelEn, opt.labelAr)}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: 48,
+                      border: opt.recommended ? "none" : "1.5px solid #26634B",
+                      background: opt.recommended ? "#26634B" : "#fff",
+                      color: opt.recommended ? "#fff" : "#26634B",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      fontFamily: "'Noto Naskh Arabic', sans-serif",
+                    }}
+                  >
+                    {lang === "en" ? opt.labelEn : opt.labelAr}
+                    {opt.recommended && (
+                      <span style={{ fontSize: 10, marginLeft: 6, opacity: 0.85 }}>
+                        {lang === "en" ? "• recommended" : "• موصى به"}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div style={{ fontSize: 10, color: "#595959" }}>
+                {lang === "en" ? "Auto-selecting recommended…" : "سيتم اختيار الموصى به تلقائياً…"}
+              </div>
             </div>
             <div
               key={`bar-${pendingChoice.id}`}
@@ -395,11 +396,12 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
                 height: 3,
                 width: "100%",
                 background: "#26634B",
+                borderBottomLeftRadius: 6,
+                borderBottomRightRadius: 6,
                 transformOrigin: "left center",
                 animation: "choiceCountdown 4.5s linear forwards",
               }}
             />
-            <style>{`@keyframes choiceCountdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }`}</style>
           </div>
         )}
 
