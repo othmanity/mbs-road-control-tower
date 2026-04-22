@@ -396,7 +396,7 @@ export default function WorkflowTracker({ lang, agentState, request, onChoice }:
                 width: "100%",
                 background: "#26634B",
                 transformOrigin: "left center",
-                animation: "choiceCountdown 3.5s linear forwards",
+                animation: "choiceCountdown 4.5s linear forwards",
               }}
             />
             <style>{`@keyframes choiceCountdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }`}</style>

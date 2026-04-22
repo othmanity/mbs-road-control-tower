@@ -12,7 +12,9 @@ export interface AgentState {
   choiceAutoPickAt: number | null;
 }
 
-const AUTO_PICK_MS = 3500;
+const AUTO_PICK_MS = 4500;
+const SPEED_FACTOR = 1.8; // >1 = slower flow, tune to taste
+const slow = (ms: number) => Math.round(ms * SPEED_FACTOR);
 
 export function useAgentSimulation() {
   const [state, setState] = useState<AgentState>({
@@ -77,15 +79,15 @@ export function useAgentSimulation() {
           isThinking: false,
           visibleMessages: [...prev.visibleMessages, msg],
         }));
-        timerRef.current = window.setTimeout(() => showNextMessage(index + 1), msg.delay);
-      }, 1500 + Math.random() * 800);
+        timerRef.current = window.setTimeout(() => showNextMessage(index + 1), slow(msg.delay));
+      }, slow(1500 + Math.random() * 800));
     } else {
       setState((prev) => ({
         ...prev,
         currentMessageIndex: index,
         visibleMessages: [...prev.visibleMessages, msg],
       }));
-      timerRef.current = window.setTimeout(() => showNextMessage(index + 1), msg.delay);
+      timerRef.current = window.setTimeout(() => showNextMessage(index + 1), slow(msg.delay));
     }
   }, []);
 
@@ -109,7 +111,7 @@ export function useAgentSimulation() {
         choiceAutoPickAt: null,
         visibleMessages: [...prev.visibleMessages, picked],
       }));
-      timerRef.current = window.setTimeout(() => showNextMessage(idx + 1), 1500);
+      timerRef.current = window.setTimeout(() => showNextMessage(idx + 1), slow(1500));
     },
     [showNextMessage]
   );
@@ -125,7 +127,7 @@ export function useAgentSimulation() {
       pendingChoice: null,
       choiceAutoPickAt: null,
     });
-    timerRef.current = window.setTimeout(() => showNextMessage(0), 600);
+    timerRef.current = window.setTimeout(() => showNextMessage(0), slow(600));
   }, [showNextMessage]);
 
   const reset = useCallback(() => {
