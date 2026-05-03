@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, type District, type Insight, type Layer } from "../../api/client";
+import { useMediaQuery, MOBILE } from "../../hooks/useMediaQuery";
 
 interface DashboardProps {
   lang: "en" | "ar";
@@ -287,6 +288,7 @@ export default function Dashboard({ lang, onAskRashid }: DashboardProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [insightsOpen, setInsightsOpen] = useState(false);
+  const isMobile = useMediaQuery(MOBILE);
 
   useEffect(() => {
     let cancelled = false;
@@ -374,7 +376,7 @@ export default function Dashboard({ lang, onAskRashid }: DashboardProps) {
   };
 
   return (
-    <div style={{ padding: 24, background: "#f8f9fa", minHeight: "100vh" }}>
+    <div style={{ padding: isMobile ? 14 : 24, background: "#f8f9fa", minHeight: "100vh" }}>
       {/* Page header + dropdown */}
       <div style={{ marginBottom: 18, display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 16, flexWrap: "wrap" }}>
         <div>
@@ -406,7 +408,8 @@ export default function Dashboard({ lang, onAskRashid }: DashboardProps) {
               fontSize: 13,
               fontWeight: 600,
               fontFamily: "'Noto Naskh Arabic', sans-serif",
-              minWidth: 240,
+              minWidth: isMobile ? 0 : 240,
+              width: isMobile ? "100%" : "auto",
               cursor: loading ? "not-allowed" : "pointer",
             }}
           >

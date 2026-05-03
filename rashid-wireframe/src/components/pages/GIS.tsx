@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Polygon, CircleMarker, Polyline, Tooltip, useM
 import "leaflet/dist/leaflet.css";
 import { api, type District, type Layer } from "../../api/client";
 import { buildLayersFor, generateBoundary, type DistrictSpec } from "../../data/districtsGeo";
+import { useMediaQuery, MOBILE } from "../../hooks/useMediaQuery";
 
 interface Props {
   lang: "en" | "ar";
@@ -73,6 +74,7 @@ export default function GIS({ lang }: Props) {
   );
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const isMobile = useMediaQuery(MOBILE);
 
   // Load districts and their layers in parallel
   useEffect(() => {
@@ -139,7 +141,7 @@ export default function GIS({ lang }: Props) {
   }, [selectedId]);
 
   return (
-    <div style={{ padding: 24, background: "#f8f9fa", minHeight: "100vh" }}>
+    <div style={{ padding: isMobile ? 14 : 24, background: "#f8f9fa", minHeight: "100vh" }}>
       {/* Header */}
       <div style={{ marginBottom: 14, display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 16, flexWrap: "wrap" }}>
         <div>
@@ -171,7 +173,8 @@ export default function GIS({ lang }: Props) {
               fontSize: 13,
               fontWeight: 600,
               fontFamily: "'Noto Naskh Arabic', sans-serif",
-              minWidth: 240,
+              minWidth: isMobile ? 0 : 240,
+              width: isMobile ? "100%" : "auto",
               cursor: "pointer",
             }}
           >
@@ -203,9 +206,25 @@ export default function GIS({ lang }: Props) {
           {t("Loading districts and layers…", "جارٍ تحميل الأحياء والطبقات…")}
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 12, height: "calc(100vh - 220px)", minHeight: 600 }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 320px",
+            gap: 12,
+            height: isMobile ? "auto" : "calc(100vh - 220px)",
+            minHeight: isMobile ? undefined : 600,
+          }}
+        >
           {/* Map */}
-          <div style={{ borderRadius: 10, overflow: "hidden", border: "1px solid #EAEAEA", position: "relative" }}>
+          <div
+            style={{
+              borderRadius: 10,
+              overflow: "hidden",
+              border: "1px solid #EAEAEA",
+              position: "relative",
+              height: isMobile ? 380 : "100%",
+            }}
+          >
             <MapContainer center={KSA_CENTER} zoom={6} style={{ height: "100%", width: "100%" }}>
               <TileLayer
                 attribution='&copy; OpenStreetMap'
@@ -349,6 +368,7 @@ export default function GIS({ lang }: Props) {
               borderRadius: 10,
               padding: 12,
               overflow: "auto",
+              maxHeight: isMobile ? 500 : "none",
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>

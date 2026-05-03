@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type Report } from "../../api/client";
+import { useMediaQuery, MOBILE } from "../../hooks/useMediaQuery";
 
 interface ReportingProps {
   lang: "en" | "ar";
@@ -73,6 +74,7 @@ export default function Reporting({ lang }: ReportingProps) {
   const [generating, setGenerating] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [menuOpenFor, setMenuOpenFor] = useState<string | null>(null);
+  const isMobile = useMediaQuery(MOBILE);
 
   const deleteReport = async (id: string) => {
     setMenuOpenFor(null);
@@ -168,7 +170,14 @@ export default function Reporting({ lang }: ReportingProps) {
         </h3>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 12, alignItems: "end" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr auto",
+          gap: 12,
+          alignItems: "end",
+        }}
+      >
         {/* Area */}
         <div>
           <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#595959", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 4 }}>
@@ -287,7 +296,7 @@ export default function Reporting({ lang }: ReportingProps) {
   );
 
   return (
-    <div style={{ padding: 24, background: "#f8f9fa", minHeight: "100vh" }}>
+    <div style={{ padding: isMobile ? 14 : 24, background: "#f8f9fa", minHeight: "100vh" }}>
       {/* Spinner keyframes (inline so we don't need a CSS file) */}
       <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
 
@@ -335,7 +344,7 @@ export default function Reporting({ lang }: ReportingProps) {
           </div>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? 280 : 360}px, 1fr))`, gap: 14 }}>
           {reports.map((r) => {
             const style = KIND_STYLE[r.kind];
             return (

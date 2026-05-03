@@ -3,6 +3,7 @@ import { api, type District, type QaItem } from "../../api/client";
 import type { AuthUser } from "../../auth/AuthContext";
 import RashidMarkdown from "../RashidMarkdown";
 import ChatBackgroundMap from "../ChatBackgroundMap";
+import { useMediaQuery, MOBILE } from "../../hooks/useMediaQuery";
 
 // Maps any keyword/synonym in a message to a district id so the background
 // map can fly to it on each turn.
@@ -55,6 +56,7 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
   // Background map focus — null = Saudi-wide; flies to a district when one is named.
   const [focusedDistrict, setFocusedDistrict] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery(MOBILE);
 
   // Init: create chat session, load keywords + qa, check api status
   useEffect(() => {
@@ -156,7 +158,7 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
   };
 
   return (
-    <div style={{ padding: 24, background: "#f8f9fa", minHeight: "100vh" }}>
+    <div style={{ padding: isMobile ? 14 : 24, background: "#f8f9fa", minHeight: "100vh" }}>
       <div style={{ marginBottom: 18 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, color: "#160F3E", margin: "0 0 4px" }}>
           {t("Ask Rashid", "اسأل راشد")}
@@ -195,7 +197,13 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
         </div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 1fr)", gap: 16 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.1fr) minmax(0, 1fr)",
+          gap: isMobile ? 12 : 16,
+        }}
+      >
         {/* LEFT — chat panel */}
         <div
           style={{
@@ -204,8 +212,8 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
             borderRadius: 10,
             display: "flex",
             flexDirection: "column",
-            height: "calc(100vh - 200px)",
-            minHeight: 500,
+            height: isMobile ? "calc(100dvh - 220px)" : "calc(100vh - 200px)",
+            minHeight: isMobile ? 420 : 500,
             position: "relative",
             overflow: "hidden",
           }}
@@ -221,23 +229,25 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
             </div>
           </div>
 
-          {/* Avatar — pinned to chat panel, IN FRONT of message bubbles */}
-          <img
-            src="/assets/rashid-cutout.png"
-            alt=""
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              bottom: 110,
-              right: lang === "ar" ? "auto" : 16,
-              left: lang === "ar" ? 16 : "auto",
-              width: 170,
-              height: "auto",
-              pointerEvents: "none",
-              userSelect: "none",
-              zIndex: 5, // above messages and input
-            }}
-          />
+          {/* Avatar — pinned to chat panel, IN FRONT of message bubbles. Hidden on mobile. */}
+          {!isMobile && (
+            <img
+              src="/assets/rashid-cutout.png"
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                bottom: 110,
+                right: lang === "ar" ? "auto" : 16,
+                left: lang === "ar" ? 16 : "auto",
+                width: 170,
+                height: "auto",
+                pointerEvents: "none",
+                userSelect: "none",
+                zIndex: 5,
+              }}
+            />
+          )}
 
           <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: 20, display: "flex", flexDirection: "column", gap: 12, position: "relative", zIndex: 2 }}>
                 {messages.map((m, i) => (
@@ -358,8 +368,8 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
             background: "#fff",
             border: "1px solid #EAEAEA",
             borderRadius: 10,
-            height: "calc(100vh - 200px)",
-            minHeight: 500,
+            height: isMobile ? 360 : "calc(100vh - 200px)",
+            minHeight: isMobile ? 320 : 500,
             position: "relative",
             overflow: "hidden",
           }}
