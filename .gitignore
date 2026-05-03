@@ -1,3 +1,25 @@
+# Node / package managers
+node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts
+dist/
+dist-ssr
+build/
+*.tsbuildinfo
+*.local
+
+# Environment files (never commit secrets!)
+.env
+.env.local
+.env.*.local
+
+# SQLite databases (re-seeded on deploy)
+backend/data/*.db
+backend/data/*.db-shm
+backend/data/*.db-wal
+
 # Logs
 logs
 *.log
@@ -7,19 +29,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# OS / editor cruft
+.DS_Store
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+*.swp
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Caches
+.npm
+.cache
+.parcel-cache
+.next
+.nuxt
+
+# Deployment platform metadata
 .vercel
