@@ -6,27 +6,42 @@ import ChatBackgroundMap from "../ChatBackgroundMap";
 import { useMediaQuery, MOBILE } from "../../hooks/useMediaQuery";
 
 // Maps any keyword/synonym in a message to a district id so the background
-// map can fly to it on each turn.
+// map can fly to it on each turn. Variants include common typos (no hyphen,
+// no space) so "alseh", "ashshati", "alahsa" all resolve correctly.
 const DISTRICT_KEYWORDS: Record<string, string[]> = {
-  "ash-shati-ash-sharqi": ["ash shati", "shati ash sharqi", "shati", "الشاطئ", "الشاطئ الشرقي"],
+  "ash-shati-ash-sharqi": ["ash shati ash sharqi", "shati ash sharqi", "ash shati", "ashshati", "shati", "الشاطئ الشرقي", "الشاطئ"],
   "riyadh":  ["riyadh", "الرياض"],
   "jeddah":  ["jeddah", "جدة"],
   "dammam":  ["dammam", "الدمام"],
-  "makkah":  ["makkah", "mecca", "مكة", "مكة المكرمة"],
-  "madinah": ["madinah", "medina", "المدينة", "المدينة المنورة"],
-  "al-ahsa": ["al-ahsa", "al ahsa", "ahsa", "الأحساء"],
-  "al-seh":  ["al-seh", "al seh", "السيح"],
+  "makkah":  ["makkah", "mecca", "مكة المكرمة", "مكة"],
+  "madinah": ["madinah", "medina", "المدينة المنورة", "المدينة"],
+  "al-ahsa": ["al-ahsa", "al ahsa", "alahsa", "ahsa", "الأحساء"],
+  "al-seh":  ["al-seh", "al seh", "alseh", "as-seh", "as seh", "asseh", "السيح"],
 };
 
+// Find the FIRST mention in the text — important for reply scanning, where
+// Rashid often names the answered district in the heading and may mention
+// other districts later in tables/comparisons. Earliest match wins. When
+// two terms start at the same index, the longer one wins.
 function detectDistrict(text: string): string | null {
   if (!text) return null;
   const lower = text.toLowerCase();
-  // Longest-keyword-first wins so "ash shati ash sharqi" doesn't get hijacked by "shati" alone.
   const flat = Object.entries(DISTRICT_KEYWORDS).flatMap(([id, terms]) =>
     terms.map((term) => ({ id, term: term.toLowerCase() })),
   );
-  flat.sort((a, b) => b.term.length - a.term.length);
-  return flat.find((entry) => lower.includes(entry.term))?.id ?? null;
+  let bestId: string | null = null;
+  let bestIdx = Infinity;
+  let bestLen = 0;
+  for (const { id, term } of flat) {
+    const idx = lower.indexOf(term);
+    if (idx === -1) continue;
+    if (idx < bestIdx || (idx === bestIdx && term.length > bestLen)) {
+      bestId = id;
+      bestIdx = idx;
+      bestLen = term.length;
+    }
+  }
+  return bestId;
 }
 
 interface AskRashidProps {
