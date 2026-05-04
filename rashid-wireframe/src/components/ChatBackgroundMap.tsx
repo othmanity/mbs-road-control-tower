@@ -65,21 +65,25 @@ export default function ChatBackgroundMap({ districts, focusedDistrict }: Props)
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         <FlyTo districts={districts} focusedId={focusedDistrict} />
-        {districts.map((d) => {
-          const isFocused = d.id === focusedDistrict;
-          return (
-            <Polygon
-              key={d.id}
-              positions={boundaryFor(d)}
-              pathOptions={{
-                color: isFocused ? "#26634B" : "#0F2A24",
-                weight: isFocused ? 3 : 1.5,
-                fillColor: isFocused ? "#0AEBD7" : "#26634B",
-                fillOpacity: isFocused ? 0.45 : 0.18,
-              }}
-            />
-          );
-        })}
+        {/* When a district is focused, render ONLY its boundary so the map
+            stays clean. Saudi-wide view (no focus) renders every district. */}
+        {districts
+          .filter((d) => !focusedDistrict || d.id === focusedDistrict)
+          .map((d) => {
+            const isFocused = d.id === focusedDistrict;
+            return (
+              <Polygon
+                key={d.id}
+                positions={boundaryFor(d)}
+                pathOptions={{
+                  color: isFocused ? "#26634B" : "#0F2A24",
+                  weight: isFocused ? 3 : 1.5,
+                  fillColor: isFocused ? "#0AEBD7" : "#26634B",
+                  fillOpacity: isFocused ? 0.45 : 0.18,
+                }}
+              />
+            );
+          })}
       </MapContainer>
     </div>
   );

@@ -60,6 +60,10 @@ function buildSystemPrompt(lang: "en" | "ar"): string {
     "4. For numbers you're uncertain about (recent stats, estimates), state your best figure naturally and only mention 'verify with the latest official source' when the user explicitly asks about freshness or sourcing.",
     "4. للأرقام التي لست متأكداً منها (إحصائيات حديثة وتقديرات)، اذكر أفضل رقم بشكل طبيعي ولا تذكر 'التحقق من المصدر الرسمي' إلا إذا سأل المستخدم صراحة عن الحداثة أو المصدر."
   ));
+  lines.push(t(
+    "5. STAY ON SCOPE. When the user asks about ONE specific district/city (e.g., Riyadh, Jeddah, Al-Seh, Madinah), answer ONLY about that district. Do NOT add comparison tables with Ash Shati Ash Sharqi, do NOT note 'compared to Ash Shati', do NOT include other districts as 'reference' or 'baseline'. Ash Shati is just one of the eight districts — it is NOT a master reference. Only mention multiple districts when the user explicitly asks for a comparison.",
+    "5. التزم بنطاق السؤال. عندما يسأل المستخدم عن حي/مدينة واحدة بعينها (مثل الرياض، جدة، السيح، المدينة)، أجب فقط عن ذلك الحي. لا تُضِف جداول مقارنة مع الشاطئ الشرقي، ولا تكتب 'مقارنةً بالشاطئ الشرقي'، ولا تذكر أحياء أخرى كـ'مرجع' أو 'خط أساس'. الشاطئ الشرقي مجرد واحد من الأحياء الثمانية — وليس مرجعاً رئيسياً. اذكر عدة أحياء فقط عندما يطلب المستخدم المقارنة صراحةً."
+  ));
   lines.push("");
   lines.push(t("DISAMBIGUATE BEFORE ANSWERING:", "وضِّح النطاق قبل الإجابة:"));
   lines.push(t(
@@ -175,8 +179,8 @@ function buildSystemPrompt(lang: "en" | "ar"): string {
   // We surface them so Rashid can answer "how many mosques in Jeddah?" etc.
   lines.push("=".repeat(60));
   lines.push(t(
-    "PER-DISTRICT 19-LAYER COUNTS (real for Ash Shati, synthesized from Ash Shati ratios for the rest)",
-    "أعداد الطبقات الـ19 لكل حي (حقيقية للشاطئ الشرقي ومستمدة من نسبه للباقي)"
+    "PER-DISTRICT 19-LAYER COUNTS — every district has the same standard counts",
+    "أعداد الطبقات الـ19 لكل حي — كل حي يحتوي على نفس العدّ المعياري"
   ));
   lines.push("=".repeat(60));
   const allDistricts = db
