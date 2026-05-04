@@ -55,8 +55,41 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
   const [districts, setDistricts] = useState<District[]>([]);
   // Background map focus — null = Saudi-wide; flies to a district when one is named.
   const [focusedDistrict, setFocusedDistrict] = useState<string | null>(null);
+  const [listening, setListening] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
   const isMobile = useMediaQuery(MOBILE);
+
+  // Browser Web Speech API for voice input. Works in Chrome / Edge / Safari
+  // (with permission prompt). Populates the input field as the user speaks.
+  const sttSupported =
+    typeof window !== "undefined" &&
+    !!((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
+
+  const startListening = () => {
+    if (!sttSupported) return;
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const rec = new SR();
+    rec.lang = lang === "ar" ? "ar-SA" : "en-US";
+    rec.interimResults = true;
+    rec.continuous = false;
+    rec.onresult = (e: any) => {
+      const transcript = Array.from(e.results)
+        .map((r: any) => r[0].transcript)
+        .join("");
+      setInput(transcript);
+    };
+    rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    rec.start();
+    recognitionRef.current = rec;
+    setListening(true);
+  };
+
+  const stopListening = () => {
+    recognitionRef.current?.stop();
+    setListening(false);
+  };
 
   // Init: create chat session, load keywords + qa, check api status
   useEffect(() => {
@@ -159,6 +192,7 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
 
   return (
     <div style={{ padding: isMobile ? 14 : 24, background: "#f8f9fa", minHeight: "100vh" }}>
+      <style>{`@keyframes rashidPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.55); } 50% { box-shadow: 0 0 0 6px rgba(220,38,38,0); } }`}</style>
       <div style={{ marginBottom: 18 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, color: "#160F3E", margin: "0 0 4px" }}>
           {t("Ask Rashid", "اسأل راشد")}
@@ -323,7 +357,7 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
                     {lang === "en" ? demoHint.question_en : demoHint.question_ar}
                   </button>
                 )}
-                <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <input
                     type="text"
                     value={input}
@@ -332,7 +366,8 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
                     placeholder={t("Ask about parcels, schools, healthcare, contractors…", "اسأل عن القطع، المدارس، الرعاية الصحية، المقاولين…")}
                     disabled={sending}
                     style={{
-                      flex: 1,
+                      flex: "1 1 200px",
+                      minWidth: 0,
                       padding: "10px 14px",
                       border: "1px solid #EAEAEA",
                       borderRadius: 8,
@@ -341,6 +376,31 @@ export default function AskRashid({ lang, user, prefillRef }: AskRashidProps) {
                       fontFamily: "inherit",
                     }}
                   />
+                  {sttSupported && (
+                    <button
+                      onClick={listening ? stopListening : startListening}
+                      disabled={sending}
+                      title={t("Talk to Rashid", "تحدّث إلى راشد")}
+                      style={{
+                        padding: "10px 16px",
+                        background: listening ? "#DC2626" : "#fff",
+                        color: listening ? "#fff" : "#26634B",
+                        border: `1.5px solid ${listening ? "#DC2626" : "#26634B"}`,
+                        borderRadius: 8,
+                        fontSize: 13,
+                        fontWeight: 600,
+                        cursor: sending ? "not-allowed" : "pointer",
+                        fontFamily: "inherit",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        animation: listening ? "rashidPulse 1.2s ease-in-out infinite" : "none",
+                      }}
+                    >
+                      <span style={{ fontSize: 15 }}>{listening ? "🔴" : "🎤"}</span>
+                      {t(listening ? "Listening…" : "Talk to Rashid", listening ? "أستمع…" : "تحدّث إلى راشد")}
+                    </button>
+                  )}
                   <button
                     onClick={() => send(input)}
                     disabled={sending || !input.trim()}

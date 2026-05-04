@@ -13,17 +13,18 @@ const KIND_STYLE: Record<Report["kind"], { bg: string; text: string; label: stri
   generated: { bg: "#DCFCE7", text: "#166534", label: "GENERATED" },
 };
 
-// Dropdown options. Only "all" is enabled in this PoC; the rest are visible
-// but dimmed/disabled so stakeholders can see the future scope.
+// Dropdown options. Only "ash-shati" is enabled in this PoC since the
+// generated report covers Ash Shati Ash Sharqi specifically; the rest are
+// visible but dimmed so stakeholders can see the future scope.
 const AREA_OPTIONS: Array<{ value: string; en: string; ar: string; enabled: boolean }> = [
-  { value: "all",        en: "All areas (Saudi-wide)", ar: "كل المناطق (على مستوى المملكة)", enabled: true },
+  { value: "ash-shati",  en: "Ash Shati Ash Sharqi",   ar: "الشاطئ الشرقي",                   enabled: true  },
+  { value: "all",        en: "All areas (Saudi-wide)", ar: "كل المناطق (على مستوى المملكة)", enabled: false },
   { value: "riyadh",     en: "Riyadh",                 ar: "الرياض",                          enabled: false },
   { value: "jeddah",     en: "Jeddah",                 ar: "جدة",                             enabled: false },
   { value: "dammam",     en: "Dammam",                 ar: "الدمام",                          enabled: false },
   { value: "makkah",     en: "Makkah",                 ar: "مكة المكرمة",                     enabled: false },
   { value: "madinah",    en: "Madinah",                ar: "المدينة المنورة",                 enabled: false },
   { value: "al-ahsa",    en: "Al-Ahsa",                ar: "الأحساء",                         enabled: false },
-  { value: "ash-shati",  en: "Ash Shati Ash Sharqi",   ar: "الشاطئ الشرقي",                   enabled: false },
   { value: "al-seh",     en: "Al-Seh",                 ar: "السيح",                           enabled: false },
 ];
 
@@ -69,7 +70,7 @@ export default function Reporting({ lang }: ReportingProps) {
   const t = (en: string, ar: string) => (lang === "en" ? en : ar);
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
-  const [area, setArea] = useState("all");
+  const [area, setArea] = useState("ash-shati");
   const [layer, setLayer] = useState("all");
   const [generating, setGenerating] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
