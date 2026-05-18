@@ -45,18 +45,6 @@ export default function Header({ lang, onToggleLang, username, onLogout }: Heade
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <div
-          style={{
-            display: "flex", alignItems: "center", gap: 8,
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.18)",
-            borderRadius: 48, padding: "4px 12px", fontSize: 12,
-          }}
-        >
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#0AEBD7" }} />
-          {lang === "en" ? "Live · Synthetic data (PoC)" : "مباشر · بيانات تجريبية"}
-        </div>
-
         {username && (
           <div
             style={{
