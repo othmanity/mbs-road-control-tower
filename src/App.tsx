@@ -1,75 +1,63 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
-import ChatInput from "./components/ChatInput";
-import WorkflowTracker from "./components/WorkflowTracker";
-import ResultsDashboard from "./components/ResultsDashboard";
-import Login from "./components/Login";
-import { useAgentSimulation } from "./hooks/useAgentSimulation";
-import { useAuth } from "./auth/AuthContext";
+import Sidebar, { type View } from "./components/Sidebar";
+import Overview from "./pages/Overview";
+import CorridorMap from "./pages/CorridorMap";
+import ZoneDetail from "./pages/ZoneDetail";
+import Activities from "./pages/Activities";
+import Reports from "./pages/Reports";
+import Chat from "./pages/Chat";
+import type { Lang } from "./types";
+import { POC_ZONE_IDS } from "./data/corridor";
 
-type Screen = "chat" | "workflow" | "results";
-
-function App() {
-  const [lang, setLang] = useState<"en" | "ar">("en");
-  const [screen, setScreen] = useState<Screen>("chat");
-  const [request, setRequest] = useState("");
-  const { state: agentState, startSimulation, submitChoice, reset: resetAgent } = useAgentSimulation();
-  const { user, logout } = useAuth();
+export default function App() {
+  const [lang, setLang] = useState<Lang>("en");
+  const [view, setView] = useState<View>("overview");
+  const [selectedZoneId, setSelectedZoneId] = useState<number>(POC_ZONE_IDS[0]);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
 
-  // Transition from workflow to results when agent completes
-  useEffect(() => {
-    if (agentState.phase === "complete") {
-      const timer = setTimeout(() => setScreen("results"), 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [agentState.phase]);
-
-  const handleSubmit = (message: string) => {
-    setRequest(message);
-    setScreen("workflow");
-    startSimulation();
+  const goToZone = (zoneId: number) => {
+    setSelectedZoneId(zoneId);
+    setView("zone");
   };
-
-  const handleReset = () => {
-    resetAgent();
-    setRequest("");
-    setScreen("chat");
-  };
-
-  const handleLogout = () => {
-    resetAgent();
-    setRequest("");
-    setScreen("chat");
-    logout();
-  };
-
-  // ---- AUTH GATE ----
-  if (!user) {
-    return <Login lang={lang} onToggleLang={toggleLang} />;
-  }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8f9fa" }}>
-      <Header
-        lang={lang}
-        onToggleLang={toggleLang}
-        user={user}
-        onLogout={handleLogout}
-      />
+    <div
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#f4f6f8" }}
+    >
+      <Header lang={lang} onToggleLang={toggleLang} />
 
-      {screen === "chat" && <ChatInput lang={lang} onSubmit={handleSubmit} />}
+      <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
+        <Sidebar lang={lang} view={view} onChange={setView} />
 
-      {screen === "workflow" && (
-        <WorkflowTracker lang={lang} agentState={agentState} request={request} onChoice={submitChoice} />
-      )}
-
-      {screen === "results" && (
-        <ResultsDashboard lang={lang} request={request} onReset={handleReset} />
-      )}
+        <main style={{ flex: 1, overflow: "auto", padding: 20 }}>
+          {view === "overview" && (
+            <Overview lang={lang} onOpenMap={() => setView("map")} onOpenZone={goToZone} />
+          )}
+          {view === "map" && (
+            <CorridorMap lang={lang} onOpenZone={goToZone} />
+          )}
+          {view === "zone" && (
+            <ZoneDetail
+              lang={lang}
+              zoneId={selectedZoneId}
+              onChangeZone={setSelectedZoneId}
+              onBackToMap={() => setView("map")}
+            />
+          )}
+          {view === "activities" && (
+            <Activities lang={lang} onOpenZone={goToZone} />
+          )}
+          {view === "reports" && (
+            <Reports lang={lang} />
+          )}
+          {view === "chat" && (
+            <Chat lang={lang} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }
-
-export default App;

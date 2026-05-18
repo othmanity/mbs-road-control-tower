@@ -50,3 +50,10 @@ lerna-debug.log*
 
 # Deployment platform metadata
 .vercel
+
+# Reference / scratch folders — kept locally, not pushed
+Old Project Rashid/
+MBS Road Findings/
+
+# Claude Code local config
+.claude/
