@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Polyline, CircleMarker, Tooltip, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Lang, PhaseId, SubStretchId } from "../types";
+import type { Lang, PhaseId, SubStretchId, Zone } from "../types";
 import {
   zones, subStretches, getCorridorPolyline, getZonePolyline, getZone, POC_ZONE_IDS,
 } from "../data/corridor";
@@ -24,16 +24,35 @@ const ASSET_ICON: Record<string, { color: string; symbol: string; en: string; ar
   green_area:       { color: "#066058", symbol: "❀", en: "Greenery",         ar: "تشجير" },
 };
 
-function FlyToZone({ zoneId }: { zoneId: number | null }) {
+function FlyToView({
+  zoneId,
+  visibleZones,
+}: {
+  zoneId: number | null;
+  visibleZones: Zone[];
+}) {
   const map = useMap();
   useEffect(() => {
-    if (zoneId == null) {
-      map.flyToBounds([[21.42, 39.17], [21.50, 39.84]], { duration: 1.2, padding: [40, 40] });
-    } else {
+    // A specific zone takes precedence over the filter
+    if (zoneId != null) {
       const z = getZone(zoneId);
       if (z) map.flyTo([z.centerLat, z.centerLng], 15, { duration: 1.4 });
+      return;
     }
-  }, [zoneId, map]);
+    // No zone selected but the user has narrowed the view via filters → fit those
+    if (visibleZones.length > 0 && visibleZones.length < zones.length) {
+      const lats = visibleZones.map((z) => z.centerLat);
+      const lngs = visibleZones.map((z) => z.centerLng);
+      const bounds: [[number, number], [number, number]] = [
+        [Math.min(...lats), Math.min(...lngs)],
+        [Math.max(...lats), Math.max(...lngs)],
+      ];
+      map.flyToBounds(bounds, { duration: 1.2, padding: [60, 60], maxZoom: 13 });
+      return;
+    }
+    // No filter, no selection → whole-corridor view
+    map.flyToBounds([[21.42, 39.17], [21.50, 39.84]], { duration: 1.2, padding: [40, 40] });
+  }, [zoneId, visibleZones, map]);
   return null;
 }
 
@@ -182,7 +201,7 @@ export default function CorridorMap({ lang, onOpenZone }: CorridorMapProps) {
             attribution="© OpenStreetMap"
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           />
-          <FlyToZone zoneId={selectedZone} />
+          <FlyToView zoneId={selectedZone} visibleZones={visibleZones} />
 
           {/* Base corridor polyline */}
           <Polyline

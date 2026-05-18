@@ -9,8 +9,31 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import Anthropic from "@anthropic-ai/sdk";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
+import path from "node:path";
 import { facts } from "../src/kb/facts";
 import { kbQuestions } from "../src/kb/questions";
+
+// Load the consolidated KB markdown bundle (the same content as the PDF).
+// Files are concatenated in numeric order: README → 00 → 01 → … → 06.
+// File 07 (facts JSON) is injected separately below via `facts`.
+const KB_MARKDOWN_DIR = path.resolve(process.cwd(), "MBS Road Control Tower");
+function loadKbMarkdown(): string {
+  if (!existsSync(KB_MARKDOWN_DIR)) {
+    console.warn(`[mbs-ct] KB folder not found at ${KB_MARKDOWN_DIR}`);
+    return "";
+  }
+  const files = readdirSync(KB_MARKDOWN_DIR)
+    .filter((f) => f.endsWith(".md"))
+    .sort(); // alphabetical = numeric order (README first, then 00..06)
+  return files
+    .map((f) => {
+      const body = readFileSync(path.join(KB_MARKDOWN_DIR, f), "utf-8");
+      return `\n\n=========================================\n  FILE: ${f}\n=========================================\n\n${body}`;
+    })
+    .join("\n");
+}
+const KB_MARKDOWN = loadKbMarkdown();
 
 const PORT = Number(process.env.PORT ?? 3001);
 const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6";
@@ -28,40 +51,49 @@ app.get("/api/health", (_req, res) => {
     api_key_present: Boolean(API_KEY),
     facts_generated_at: facts.generated_at,
     kb_questions: kbQuestions.length,
+    kb_markdown_chars: KB_MARKDOWN.length,
   });
 });
 
 // ---- System prompt builder ---------------------------------------------
-function buildSystemPrompt(lang: "en" | "ar"): string {
+function buildSystemPrompt(_lang: "en" | "ar"): string {
   const factsJson = JSON.stringify(facts, null, 2);
-  const qaList = kbQuestions
-    .map((q) => `- [${q.id}] ${lang === "en" ? q.q_en : q.q_ar}`)
-    .join("\n");
 
   return `You are the MBS Road Control Tower Agent — a leadership-facing assistant for the Saudi Ministry of Municipalities & Housing (MoMAH) overseeing the Prince Mohammed bin Salman Road corridor (Jeddah → Makkah, 75 km, 170,000+ vehicles/day).
 
 YOUR SCOPE
-- ONLY answer questions about the MBS Road corridor, its 75 zones, 5 rollout phases, 3 geographic sub-stretches, findings, KPIs, agencies, budget, and Hajj readiness.
+- ONLY answer questions about the MBS Road corridor, its 75 zones, 5 rollout phases, 3 geographic sub-stretches, findings, KPIs, agencies, budget, governance, glossary terms, and Hajj readiness.
 - For anything outside this scope, politely decline in one short sentence and remind the user of your scope.
 - Synthetic PoC data is ONLY populated for zones 8, 35, and 70. For any other zone, share the zone's phase and sub-stretch only and note that data isn't loaded yet.
 
 ANSWER STYLE
 - Match the user's language. If they write in Arabic, answer in Arabic. If English, answer in English.
 - Be concise and leadership-grade. Use bullet points and bold for key numbers when it helps scannability.
-- Use ONLY the FACTS snapshot below as the source of truth. Never invent zone IDs, budgets, agencies, or KPI numbers that aren't in the snapshot.
+- Ground every answer in the KNOWLEDGE BASE and FACTS SNAPSHOT below. Never invent zone IDs, budgets, agencies, or KPI numbers that aren't in those sources.
 - When you cite a number, anchor it (e.g., "53% of the 90% target" not just "53%").
-- Use Hijri/Gregorian dates as given. Don't translate or re-calculate dates.
-- Disclaimer if asked about real data: this is synthetic PoC data, not live operational data.
+- When relevant, cite which KB section your answer is drawn from (e.g., "(see 03 · Zones)" or "(see 04 · Agencies & Governance)").
+- Use dates as given. Don't translate or re-calculate dates.
+- Disclaimer if asked whether the data is real: this is synthetic PoC data, not live operational data.
 
-FACTS SNAPSHOT (single source of truth — JSON)
+PRIORITY ORDER WHEN SOURCES SEEM TO DISAGREE
+1. FACTS SNAPSHOT (canonical numbers, always)
+2. KNOWLEDGE BASE markdown (narrative, governance, glossary, Q&A reference)
+
+===========================================
+KNOWLEDGE BASE — consolidated MBS Road Control Tower documentation
+(same content as the leadership PDF; sections in numeric order)
+===========================================
+
+${KB_MARKDOWN}
+
+===========================================
+FACTS SNAPSHOT — canonical numeric source of truth (JSON)
+===========================================
+
 \`\`\`json
 ${factsJson}
 \`\`\`
-
-REFERENCE QUESTIONS THE AGENT IS EXPECTED TO HANDLE
-${qaList}
-
-You may receive follow-up or rephrased versions of these reference questions. Always ground your answer in the FACTS snapshot above.`;
+`;
 }
 
 // ---- Streaming chat endpoint -------------------------------------------
