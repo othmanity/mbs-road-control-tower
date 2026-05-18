@@ -1,0 +1,19 @@
+# Railway / Nixpacks config — backend deploy
+#
+# This repo is a frontend + backend mono. On Railway we ONLY run the backend.
+# We pin Node 20 (Vite 8 requires it) and skip the frontend build entirely
+# (Vercel builds the frontend). Start command is `npm run server`.
+
+providers = ["node"]
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm ci --include=dev || npm install --include=dev"]
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = "npm run server"
