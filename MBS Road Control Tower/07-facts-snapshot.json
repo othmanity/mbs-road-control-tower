@@ -1,0 +1,509 @@
+{
+  "generated_at": "2026-05-18T11:45:24.751Z",
+  "corridor": {
+    "name": {
+      "en": "Prince Mohammed bin Salman Road Axis",
+      "ar": "محور طريق الأمير محمد بن سلمان"
+    },
+    "total_km": 75,
+    "daily_vehicles": 170000,
+    "endpoints": {
+      "en": "Jeddah Islamic Port → Al-Masjid Al-Haram (Makkah)",
+      "ar": "ميناء جدة الإسلامي → المسجد الحرام (مكة المكرمة)"
+    },
+    "sub_stretches": [
+      {
+        "id": "port",
+        "name": {
+          "en": "Port → Bahrah",
+          "ar": "الميناء إلى بحرة"
+        },
+        "start_km": 0,
+        "end_km": 30,
+        "character": {
+          "en": "Logistics, port traffic, workshops & warehouses",
+          "ar": "النقل واللوجستيات، ورش ومستودعات"
+        }
+      },
+      {
+        "id": "middle",
+        "name": {
+          "en": "Bahrah → Prince Naif",
+          "ar": "بحرة إلى كبري الأمير نايف"
+        },
+        "start_km": 30,
+        "end_km": 64,
+        "character": {
+          "en": "Inter-city, fuel stations, ad boards, slum pockets",
+          "ar": "النقل بين المدن، محطات وقود، لوحات إعلانية، عشوائيات"
+        }
+      },
+      {
+        "id": "haram",
+        "name": {
+          "en": "Prince Naif → Holy Mosque",
+          "ar": "كبري الأمير نايف إلى الحرم"
+        },
+        "start_km": 64,
+        "end_km": 75,
+        "character": {
+          "en": "Pilgrim approach to Al-Masjid Al-Haram (high scrutiny)",
+          "ar": "مدخل الحجاج إلى المسجد الحرام (تدقيق عالٍ)"
+        }
+      }
+    ],
+    "phases": [
+      {
+        "phase": 1,
+        "zones_from": 1,
+        "zones_to": 15
+      },
+      {
+        "phase": 2,
+        "zones_from": 16,
+        "zones_to": 30
+      },
+      {
+        "phase": 3,
+        "zones_from": 31,
+        "zones_to": 45
+      },
+      {
+        "phase": 4,
+        "zones_from": 46,
+        "zones_to": 60
+      },
+      {
+        "phase": 5,
+        "zones_from": 61,
+        "zones_to": 75
+      }
+    ]
+  },
+  "hajj_readiness": {
+    "next_hajj_date": "2027-05-25",
+    "days_remaining": 372,
+    "on_track": false,
+    "summary_en": "372 days until Hajj 2027-05-25. Average 2027-KPI progress is 36% of target — corridor is behind the ramp.",
+    "summary_ar": "372 يوماً حتى الحج 2027-05-25. متوسط تقدّم مستهدفات 2027 يبلغ 36% من المستهدف — المحور متأخر عن المسار."
+  },
+  "kpis": [
+    {
+      "id": "maintenance_coverage",
+      "label": {
+        "en": "Road maintenance coverage",
+        "ar": "تغطية أعمال الصيانة"
+      },
+      "target_pct": 100,
+      "current_pct": 38,
+      "weekly_delta_pct": 4.2,
+      "on_track": false,
+      "category": "maintenance"
+    },
+    {
+      "id": "building_compliance",
+      "label": {
+        "en": "Buildings compliant with urban codes",
+        "ar": "امتثال المباني للأكواد العمرانية"
+      },
+      "target_pct": 70,
+      "current_pct": 22,
+      "weekly_delta_pct": 2.1,
+      "on_track": false,
+      "category": "compliance"
+    },
+    {
+      "id": "illegal_workshops_removed",
+      "label": {
+        "en": "Illegal workshops & yards cleared",
+        "ar": "إزالة الورش والمستودعات غير النظامية"
+      },
+      "target_pct": 100,
+      "current_pct": 41,
+      "weekly_delta_pct": 6,
+      "on_track": false,
+      "category": "removal"
+    },
+    {
+      "id": "barriers_fixed",
+      "label": {
+        "en": "Damaged concrete barriers repaired",
+        "ar": "إصلاح الحواجز الخرسانية المتهالكة"
+      },
+      "target_pct": 90,
+      "current_pct": 53,
+      "weekly_delta_pct": 5.3,
+      "on_track": true,
+      "category": "infrastructure"
+    },
+    {
+      "id": "condemned_demolished",
+      "label": {
+        "en": "Condemned buildings demolished",
+        "ar": "هدم المباني الملغاة صكوكها"
+      },
+      "target_pct": 100,
+      "current_pct": 28,
+      "weekly_delta_pct": 3.7,
+      "on_track": false,
+      "category": "removal"
+    },
+    {
+      "id": "greenery_added",
+      "label": {
+        "en": "Greenery & median planting added",
+        "ar": "زراعة الجزر الوسطية والتشجير"
+      },
+      "target_pct": 100,
+      "current_pct": 19,
+      "weekly_delta_pct": 1.4,
+      "on_track": false,
+      "category": "greenery"
+    }
+  ],
+  "agencies": [
+    {
+      "id": "momah",
+      "acronym": "MoMAH",
+      "name": {
+        "en": "Ministry of Municipalities & Housing",
+        "ar": "وزارة البلديات والإسكان"
+      },
+      "scope": {
+        "en": "Governance owner, standards, policy",
+        "ar": "المالك الحوكمي، المعايير، السياسات"
+      },
+      "owned_findings_count": 0,
+      "blocked_findings_count": 0
+    },
+    {
+      "id": "holy_capital",
+      "acronym": "HCM",
+      "name": {
+        "en": "Holy Capital Municipality (Makkah)",
+        "ar": "أمانة العاصمة المقدسة (مكة)"
+      },
+      "scope": {
+        "en": "Operates the Makkah-side stretch",
+        "ar": "تشغيل القطاع المتجه إلى مكة"
+      },
+      "owned_findings_count": 8,
+      "blocked_findings_count": 1
+    },
+    {
+      "id": "jeddah_muni",
+      "acronym": "JM",
+      "name": {
+        "en": "Jeddah Municipality",
+        "ar": "أمانة جدة"
+      },
+      "scope": {
+        "en": "Operates the Jeddah-side stretch",
+        "ar": "تشغيل القطاع المتجه إلى جدة"
+      },
+      "owned_findings_count": 3,
+      "blocked_findings_count": 0
+    },
+    {
+      "id": "roads_general",
+      "acronym": "RGA",
+      "name": {
+        "en": "Roads General Authority",
+        "ar": "الهيئة العامة للطرق"
+      },
+      "scope": {
+        "en": "Asphalt, bridges, road safety",
+        "ar": "السفلتة، الجسور، السلامة المرورية"
+      },
+      "owned_findings_count": 8,
+      "blocked_findings_count": 1
+    },
+    {
+      "id": "traffic_dept",
+      "acronym": "GDT",
+      "name": {
+        "en": "General Department of Traffic",
+        "ar": "الإدارة العامة للمرور"
+      },
+      "scope": {
+        "en": "Traffic flow, inspection points",
+        "ar": "حركة المرور، نقاط التفتيش"
+      },
+      "owned_findings_count": 1,
+      "blocked_findings_count": 0
+    },
+    {
+      "id": "civil_defense",
+      "acronym": "GDCD",
+      "name": {
+        "en": "General Directorate of Civil Defense",
+        "ar": "المديرية العامة للدفاع المدني"
+      },
+      "scope": {
+        "en": "Emergency, safety inspections",
+        "ar": "الطوارئ، تفتيش السلامة"
+      },
+      "owned_findings_count": 1,
+      "blocked_findings_count": 0
+    },
+    {
+      "id": "investment",
+      "acronym": "PIF/PPP",
+      "name": {
+        "en": "Private-Sector Investment Partner",
+        "ar": "شريك استثمار من القطاع الخاص"
+      },
+      "scope": {
+        "en": "Greenery, ad-board concessions, fuel/service plots",
+        "ar": "تشجير، امتياز اللوحات، محطات الوقود"
+      },
+      "owned_findings_count": 5,
+      "blocked_findings_count": 0
+    }
+  ],
+  "poc_zones": [
+    {
+      "id": 8,
+      "name": {
+        "en": "Zone 8",
+        "ar": "النطاق 8"
+      },
+      "phase": 1,
+      "sub_stretch": "port",
+      "km_range": "7–8 km",
+      "density": "high",
+      "traffic_per_day": 96096,
+      "findings_total": 8,
+      "findings_open": 3,
+      "findings_done": 1,
+      "findings_blocked": 1,
+      "findings_high_severity": 4,
+      "development_count": 4,
+      "operational_count": 4,
+      "budget_committed_sar": 15450000,
+      "budget_spent_sar": 4990000,
+      "owner_agencies": [
+        "JM",
+        "RGA",
+        "GDCD",
+        "PIF/PPP"
+      ],
+      "asset_count_by_type": {
+        "service_center": 1,
+        "fuel_station": 1,
+        "inspection_point": 1
+      },
+      "headline_en": "Workshops belt, asphalt deterioration, damaged median barriers",
+      "headline_ar": "حزام ورش، تدهور سفلتة، حواجز جزيرة وسطية متهالكة"
+    },
+    {
+      "id": 35,
+      "name": {
+        "en": "Zone 35",
+        "ar": "النطاق 35"
+      },
+      "phase": 3,
+      "sub_stretch": "middle",
+      "km_range": "34–35 km",
+      "density": "high",
+      "traffic_per_day": 134795,
+      "findings_total": 9,
+      "findings_open": 5,
+      "findings_done": 1,
+      "findings_blocked": 0,
+      "findings_high_severity": 2,
+      "development_count": 4,
+      "operational_count": 5,
+      "budget_committed_sar": 31200000,
+      "budget_spent_sar": 4200000,
+      "owner_agencies": [
+        "HCM",
+        "PIF/PPP",
+        "RGA"
+      ],
+      "asset_count_by_type": {
+        "slum_area": 1,
+        "fuel_station": 1,
+        "green_area": 1
+      },
+      "headline_en": "Slum cluster, ad-board mess, fuel-station code violations",
+      "headline_ar": "تجمع عشوائيات، فوضى لوحات إعلانية، مخالفات محطات وقود"
+    },
+    {
+      "id": 70,
+      "name": {
+        "en": "Zone 70",
+        "ar": "النطاق 70"
+      },
+      "phase": 5,
+      "sub_stretch": "haram",
+      "km_range": "69–70 km",
+      "density": "high",
+      "traffic_per_day": 184590,
+      "findings_total": 9,
+      "findings_open": 4,
+      "findings_done": 0,
+      "findings_blocked": 1,
+      "findings_high_severity": 4,
+      "development_count": 4,
+      "operational_count": 5,
+      "budget_committed_sar": 20750000,
+      "budget_spent_sar": 5120000,
+      "owner_agencies": [
+        "RGA",
+        "GDT",
+        "HCM",
+        "PIF/PPP"
+      ],
+      "asset_count_by_type": {
+        "bridge": 1,
+        "inspection_point": 1,
+        "green_area": 1
+      },
+      "headline_en": "Pilgrim approach: bridge perimeter, inspection-point appearance, barriers",
+      "headline_ar": "مدخل الحجاج: حرم الكبري، مظهر نقطة التفتيش، حواجز"
+    }
+  ],
+  "findings_aggregate": {
+    "total": 26,
+    "open": 12,
+    "in_progress": 10,
+    "done": 2,
+    "blocked": 2,
+    "high_severity_open": 9,
+    "by_activity_type": {
+      "development": 12,
+      "operational": 14
+    },
+    "by_category": {
+      "illegal_workshops": 2,
+      "barriers_damaged": 3,
+      "asphalt_digging": 4,
+      "ad_boards": 4,
+      "fuel_station_violation": 3,
+      "greenery": 3,
+      "slums": 2,
+      "building_violations": 2,
+      "bridge_perimeter": 1,
+      "inspection_point": 2
+    },
+    "by_status": {
+      "in_progress": 10,
+      "open": 12,
+      "done": 2,
+      "blocked": 2
+    },
+    "by_agency": {
+      "JM": 3,
+      "RGA": 8,
+      "GDCD": 1,
+      "PIF/PPP": 5,
+      "HCM": 8,
+      "GDT": 1
+    },
+    "by_zone": {
+      "Z8": 8,
+      "Z35": 9,
+      "Z70": 9
+    },
+    "top_blockers": [
+      {
+        "id": "F-Z35-005",
+        "zone_id": 35,
+        "title_en": "Two ad boards leaning post-windstorm",
+        "title_ar": "ميلان لوحتين إعلانيتين بعد عاصفة الرياح",
+        "owner_acronym": "HCM",
+        "status": "done",
+        "target_date": "2026-04-30",
+        "severity": "high"
+      },
+      {
+        "id": "F-Z8-006",
+        "zone_id": 8,
+        "title_en": "Open trench left unfilled by utility contractor",
+        "title_ar": "حفرة مفتوحة لم يردمها مقاول المرافق",
+        "owner_acronym": "RGA",
+        "status": "blocked",
+        "target_date": "2026-05-13",
+        "severity": "high"
+      },
+      {
+        "id": "F-Z8-007",
+        "zone_id": 8,
+        "title_en": "Recurring oil-spill from car repair yard",
+        "title_ar": "تسرّب زيوت متكرر من ساحة إصلاح سيارات",
+        "owner_acronym": "GDCD",
+        "status": "in_progress",
+        "target_date": "2026-05-25",
+        "severity": "high"
+      },
+      {
+        "id": "F-Z70-007",
+        "zone_id": 70,
+        "title_en": "Surface cracking — bridge expansion joint",
+        "title_ar": "تشقّق سطحي عند فاصل تمدّد الجسر",
+        "owner_acronym": "RGA",
+        "status": "in_progress",
+        "target_date": "2026-05-30",
+        "severity": "high"
+      },
+      {
+        "id": "F-Z70-009",
+        "zone_id": 70,
+        "title_en": "Adjacent building façade obstructing welcome signage",
+        "title_ar": "واجهة مبنى مجاور تحجب لافتة الترحيب",
+        "owner_acronym": "HCM",
+        "status": "blocked",
+        "target_date": "2026-05-30",
+        "severity": "medium"
+      }
+    ]
+  },
+  "glossary": [
+    {
+      "term_en": "Visual distortion (urban)",
+      "term_ar": "تشوه بصري / حضري",
+      "definition_en": "Any element that degrades the visual quality of the corridor — graffiti, oversize ad boards, unfinished construction, abandoned vehicles, broken barriers, etc.",
+      "definition_ar": "أي عنصر يخفض الجودة البصرية للمحور — كتابات على الجدران، لوحات إعلانية بأحجام مخالفة، سواكر، مركبات مهجورة، حواجز مكسورة، إلخ."
+    },
+    {
+      "term_en": "Development activity",
+      "term_ar": "نشاط تطويري",
+      "definition_en": "Major capital fixes to address the report's primary findings (new fuel station, demolition, asphalt overlay, bridge repair, greenery program). Has budget, contractor, target date.",
+      "definition_ar": "أعمال رأسمالية رئيسية لمعالجة الملاحظات الأساسية في التقرير (محطة وقود جديدة، هدم، إعادة سفلتة، إصلاح كبري، برنامج تشجير). لها ميزانية ومقاول وتاريخ مستهدف."
+    },
+    {
+      "term_en": "Operational activity",
+      "term_ar": "نشاط تشغيلي",
+      "definition_en": "Day-to-day inspector findings, mostly visual-distortion related, on a short cycle: Open → Assigned → Fixed → Verified.",
+      "definition_ar": "ملاحظات مفتشين يومية، معظمها متعلق بالتشوه البصري، بدورة قصيرة: مفتوحة → مُسندة → مُصلحة → مُتحقق منها."
+    },
+    {
+      "term_en": "Sub-stretch",
+      "term_ar": "قطاع جغرافي",
+      "definition_en": "One of three natural geographic segments of the 75 km corridor: Port (0–30 km), Middle (30–64 km), Haram (64–75 km).",
+      "definition_ar": "أحد ثلاثة قطاعات جغرافية طبيعية للمحور الذي طوله 75 كم: الميناء (0–30 كم)، الوسط (30–64 كم)، الحرم (64–75 كم)."
+    },
+    {
+      "term_en": "Phase",
+      "term_ar": "مرحلة",
+      "definition_en": "One of 5 operational rollout phases. Each phase covers 15 zones (15 km).",
+      "definition_ar": "واحدة من 5 مراحل إطلاق تشغيلية. كل مرحلة تغطي 15 نطاقاً (15 كم)."
+    },
+    {
+      "term_en": "Zone",
+      "term_ar": "نطاق",
+      "definition_en": "A 1-km segment of the corridor. There are 75 zones in total (Z1–Z75). PoC data exists for Z8, Z35, Z70.",
+      "definition_ar": "مقطع طوله 1 كم من المحور. يوجد إجمالاً 75 نطاقاً (Z1–Z75). البيانات التجريبية متوفرة للنطاقات Z8 و Z35 و Z70."
+    }
+  ],
+  "scope_notes": {
+    "poc_zone_ids": [
+      8,
+      35,
+      70
+    ],
+    "out_of_scope_response_en": "Synthetic data is only available for the 3 PoC zones (Z8, Z35, Z70). For other zones I can describe their phase and sub-stretch, but findings, budgets, and inspector details are not yet populated.",
+    "out_of_scope_response_ar": "البيانات التجريبية متوفرة فقط لنطاقات التجربة الثلاثة (Z8 و Z35 و Z70). لباقي النطاقات أستطيع تحديد المرحلة والقطاع الجغرافي فقط، أما الملاحظات والميزانيات وتفاصيل المفتشين فلم تُحقَن بعد."
+  }
+}
