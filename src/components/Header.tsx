@@ -3,9 +3,11 @@ import type { Lang } from "../types";
 interface HeaderProps {
   lang: Lang;
   onToggleLang: () => void;
+  username?: string;
+  onLogout?: () => void;
 }
 
-export default function Header({ lang, onToggleLang }: HeaderProps) {
+export default function Header({ lang, onToggleLang, username, onLogout }: HeaderProps) {
   return (
     <header
       style={{
@@ -55,6 +57,29 @@ export default function Header({ lang, onToggleLang }: HeaderProps) {
           {lang === "en" ? "Live · Synthetic data (PoC)" : "مباشر · بيانات تجريبية"}
         </div>
 
+        {username && (
+          <div
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderRadius: 48, padding: "4px 12px 4px 4px", fontSize: 12,
+            }}
+          >
+            <span
+              style={{
+                width: 26, height: 26, borderRadius: "50%",
+                background: "rgba(255,255,255,0.22)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontWeight: 700, fontSize: 12,
+              }}
+            >
+              {username[0].toUpperCase()}
+            </span>
+            <span style={{ fontWeight: 600 }}>{username}</span>
+          </div>
+        )}
+
         <button
           onClick={onToggleLang}
           style={{
@@ -66,6 +91,20 @@ export default function Header({ lang, onToggleLang }: HeaderProps) {
         >
           {lang === "en" ? "عربي" : "EN"}
         </button>
+
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            style={{
+              background: "rgba(255,255,255,0.12)",
+              border: "1px solid rgba(255,255,255,0.25)",
+              borderRadius: 48, padding: "6px 16px",
+              color: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 600,
+            }}
+          >
+            {lang === "en" ? "Logout" : "خروج"}
+          </button>
+        )}
       </div>
     </header>
   );
