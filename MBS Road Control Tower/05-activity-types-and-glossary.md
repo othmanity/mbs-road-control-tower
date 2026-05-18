@@ -53,7 +53,7 @@ The 10 distortion manifestations identified in the report (slide 6). Each findin
 
 | Asset (EN) | Asset (AR) | Notes |
 |---|---|---|
-| Bridge | كبري | e.g., Prince Naif Bridge (Z70), Bahrah Bridge |
+| Bridge | كبري | e.g., Prince Nayef Bridge (Z70), Bahrah Bridge |
 | Fuel station | محطة وقود | Code compliance is a recurring issue |
 | Inspection point | نقطة تفتيش | GDT-operated, appearance matters for pilgrim welcome |
 | Service center | مركز خدمات | Logistics / commercial cluster |

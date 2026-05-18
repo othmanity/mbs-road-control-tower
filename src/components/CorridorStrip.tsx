@@ -23,7 +23,7 @@ export default function CorridorStrip({
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6, fontSize: 11, color: "#595959" }}>
         <span>{lang === "en" ? "Jeddah Port (0 km)" : "ميناء جدة (0 كم)"}</span>
         <span>{lang === "en" ? "Bahrah (30 km)" : "بحرة (30 كم)"}</span>
-        <span>{lang === "en" ? "Prince Naif (64 km)" : "الأمير نايف (64 كم)"}</span>
+        <span>{lang === "en" ? "Prince Nayef (64 km)" : "الأمير نايف (64 كم)"}</span>
         <span>{lang === "en" ? "Haram (75 km)" : "الحرم (75 كم)"}</span>
       </div>
 

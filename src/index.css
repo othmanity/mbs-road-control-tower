@@ -109,3 +109,141 @@ input, textarea { font-family: inherit; }
   border-color: var(--dga-green);
   color: var(--dga-green);
 }
+
+/* ====== Markdown message rendering (agent chat bubbles) ============= */
+.md-msg {
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: #1a2129;
+}
+.md-msg > div > *:first-child { margin-top: 0; }
+.md-msg > div > *:last-child { margin-bottom: 0; }
+
+.md-msg h1, .md-msg h2, .md-msg h3, .md-msg h4 {
+  color: #066058;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 16px 0 6px;
+}
+.md-msg h1 { font-size: 18px; }
+.md-msg h2 {
+  font-size: 16px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #DDE7E2;
+}
+.md-msg h3 { font-size: 14.5px; color: #144D3F; }
+.md-msg h4 { font-size: 13.5px; color: #144D3F; }
+
+.md-msg p { margin: 0 0 8px; }
+.md-msg p:last-child { margin-bottom: 0; }
+
+.md-msg strong { color: #066058; font-weight: 700; }
+.md-msg em { color: #595959; font-style: italic; }
+
+.md-msg ul, .md-msg ol {
+  margin: 6px 0 10px;
+  padding-inline-start: 22px;
+}
+.md-msg li { margin: 3px 0; }
+.md-msg li::marker { color: #066058; }
+
+.md-msg a {
+  color: #066058;
+  text-decoration: underline;
+  text-decoration-color: rgba(6,96,88,0.35);
+  text-underline-offset: 2px;
+}
+.md-msg a:hover { text-decoration-color: #066058; }
+
+.md-msg code {
+  background: rgba(6,96,88,0.10);
+  color: #066058;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+  font-size: 12px;
+}
+
+.md-msg pre {
+  background: #0E1A22;
+  color: #E6E6E6;
+  padding: 12px 14px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 8px 0 10px;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.md-msg pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+.md-msg blockquote {
+  margin: 8px 0;
+  padding: 8px 14px;
+  border-inline-start: 3px solid #066058;
+  background: rgba(6,96,88,0.06);
+  color: #323232;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+}
+.md-msg blockquote p { margin: 0; }
+
+.md-msg hr {
+  border: none;
+  border-top: 1px dashed #CDCCD5;
+  margin: 12px 0;
+}
+
+/* Tables — the big upgrade for KB-style answers */
+.md-msg table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 12px;
+  font-size: 12.5px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #E5EBE8;
+}
+.md-msg thead th {
+  background: #066058;
+  color: #fff;
+  text-align: start;
+  font-weight: 600;
+  padding: 8px 10px;
+  letter-spacing: 0.2px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+}
+.md-msg tbody td {
+  padding: 8px 10px;
+  border-top: 1px solid #EBEFEC;
+  vertical-align: top;
+  color: #2a3038;
+}
+.md-msg tbody tr:nth-child(even) td { background: #F8FAF9; }
+
+/* Blinking cursor while streaming */
+.md-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: #066058;
+  vertical-align: -2px;
+  margin-inline-start: 3px;
+  border-radius: 1px;
+  animation: md-blink 1s steps(2, start) infinite;
+}
+@keyframes md-blink { to { visibility: hidden; } }
+
+/* Make sure markdown follows RTL in Arabic */
+html[dir="rtl"] .md-msg ul,
+html[dir="rtl"] .md-msg ol { padding-inline-start: 22px; }
+
+/* Inline ASCII / pre-wrap blocks (e.g., the corridor map in 01-corridor-overview) */
+.md-msg pre { white-space: pre; }

@@ -61,7 +61,7 @@ _لماذا يُعد هذا المحور استراتيجياً؟_
 ### `C-04` What are the three geographic sub-stretches of the road?
 _ما القطاعات الجغرافية الثلاثة للطريق؟_
 
-**Answer (EN):** Port → Bahrah (0–30 km, logistics & workshops), Bahrah → Prince Naif (30–64 km, inter-city / fuel / ad-boards / slum pockets), and Prince Naif → Holy Mosque (64–75 km, pilgrim approach).
+**Answer (EN):** Port → Bahrah (0–30 km, logistics & workshops), Bahrah → Prince Nayef (30–64 km, inter-city / fuel / ad-boards / slum pockets), and Prince Nayef → Holy Mosque (64–75 km, pilgrim approach).
 
 **Answer (AR):** الميناء → بحرة (0–30 كم، لوجستيات وورش)، بحرة → الأمير نايف (30–64 كم، نقل بين مدن / محطات وقود / لوحات / عشوائيات)، الأمير نايف → الحرم (64–75 كم، مدخل الحجاج).
 
@@ -108,7 +108,7 @@ _ما الفرق بين المرحلة والقطاع الجغرافي؟_
 ### `S-04` Which phase does Zone 70 belong to?
 _إلى أي مرحلة ينتمي النطاق 70؟_
 
-**Answer (EN):** Phase 5 (Z61–Z75), sub-stretch ‘Prince Naif → Holy Mosque’.
+**Answer (EN):** Phase 5 (Z61–Z75), sub-stretch ‘Prince Nayef → Holy Mosque’.
 
 **Answer (AR):** المرحلة 5 (Z61–Z75)، القطاع ‘الأمير نايف → الحرم’.
 
@@ -337,7 +337,7 @@ _ما الوضع في النطاق 35؟_
 ### `Z-03` What is the situation in Zone 70?
 _ما الوضع في النطاق 70؟_
 
-**Answer (EN):** Phase 5, Haram approach, high distortion density. Prince Naif Bridge perimeter restoration, inspection-point upgrade, barrier replacement. Highest leadership scrutiny before Hajj.
+**Answer (EN):** Phase 5, Haram approach, high distortion density. Prince Nayef Bridge perimeter restoration, inspection-point upgrade, barrier replacement. Highest leadership scrutiny before Hajj.
 
 **Answer (AR):** المرحلة 5، مدخل الحرم، كثافة تشوه عالية. إعادة تأهيل حرم كبري الأمير نايف، تطوير نقطة التفتيش، استبدال الحواجز. أعلى تدقيق قيادي قبل الحج.
 
@@ -370,7 +370,7 @@ _أي نطاق تجريبي يحوي أكثر ملاحظات عالية الخط
 ### `Z-06` Are there bridges in any PoC zone?
 _هل توجد كباري في أي نطاق تجريبي؟_
 
-**Answer (EN):** Yes — Zone 70 contains Prince Naif Bridge (approach). Asset type ‘bridge’ also appears in poc_zones[id=70].asset_count_by_type.
+**Answer (EN):** Yes — Zone 70 contains Prince Nayef Bridge (approach). Asset type ‘bridge’ also appears in poc_zones[id=70].asset_count_by_type.
 
 **Answer (AR):** نعم — النطاق 70 يحوي كبري الأمير نايف (المدخل). نوع الأصل ‘bridge’ يظهر أيضاً في poc_zones[id=70].asset_count_by_type.
 
@@ -555,7 +555,7 @@ _ما الأعمال قصيرة المدى التي يجب إنجازها قبل
 ### `H-04` Which zone is the highest priority for Hajj readiness?
 _أي نطاق له أعلى أولوية لجاهزية الحج؟_
 
-**Answer (EN):** Zone 70 — Prince Naif Bridge approach is the pilgrim entry; bridge perimeter and inspection-point appearance directly shape the welcome experience.
+**Answer (EN):** Zone 70 — Prince Nayef Bridge approach is the pilgrim entry; bridge perimeter and inspection-point appearance directly shape the welcome experience.
 
 **Answer (AR):** النطاق 70 — مدخل كبري الأمير نايف هو مدخل الحجاج؛ حرم الكبري ومظهر نقطة التفتيش يحددان مباشرةً تجربة الترحيب.
 

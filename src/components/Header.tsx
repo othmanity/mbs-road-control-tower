@@ -1,4 +1,5 @@
 import type { Lang } from "../types";
+import ControlTowerIcon from "./ControlTowerIcon";
 
 interface HeaderProps {
   lang: Lang;
@@ -23,14 +24,15 @@ export default function Header({ lang, onToggleLang, username, onLogout }: Heade
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
         <div
           style={{
-            width: 44, height: 44, borderRadius: 8,
-            background: "rgba(255,255,255,0.12)",
-            border: "1.5px solid rgba(255,255,255,0.25)",
+            width: 44, height: 44, borderRadius: 10,
+            background: "rgba(255,255,255,0.10)",
+            border: "1px solid rgba(255,255,255,0.20)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontWeight: 800, fontSize: 16, letterSpacing: 0.5,
+            color: "#fff",
+            padding: 4,
           }}
         >
-          MBS
+          <ControlTowerIcon size={36} variant="mono" />
         </div>
         <div>
           <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.15 }}>

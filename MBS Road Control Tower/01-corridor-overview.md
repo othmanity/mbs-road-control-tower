@@ -24,7 +24,7 @@ The corridor splits naturally into three contexts:
 ```
 0 km            30 km                   64 km    75 km
 ●──────────────────●──────────────────────────●────────●
-Jeddah Port     Bahrah Bridge        Prince Naif    Holy Mosque
+Jeddah Port     Bahrah Bridge        Prince Nayef    Holy Mosque
    │                  │                     │            │
    └─── PORT ─────────┴────── MIDDLE ────────┴── HARAM ──┘
        (30 km)              (34 km)             (11 km)
@@ -33,8 +33,8 @@ Jeddah Port     Bahrah Bridge        Prince Naif    Holy Mosque
 | ID | Stretch | Length | Character |
 |---|---|---|---|
 | `port` | **Port → Bahrah** | 0 – 30 km | Logistics & port traffic, workshops, mechanic yards, heavy vehicles |
-| `middle` | **Bahrah → Prince Naif** | 30 – 64 km | Inter-city movement, fuel stations, ad boards, slum pockets |
-| `haram` | **Prince Naif → Holy Mosque** | 64 – 75 km | Pilgrim approach — highest leadership scrutiny, visual welcome critical |
+| `middle` | **Bahrah → Prince Nayef** | 30 – 64 km | Inter-city movement, fuel stations, ad boards, slum pockets |
+| `haram` | **Prince Nayef → Holy Mosque** | 64 – 75 km | Pilgrim approach — highest leadership scrutiny, visual welcome critical |
 
 ---
 
@@ -47,7 +47,7 @@ Independent of geography, the corridor is divided into **75 zones of 1 km each**
 | **1** | Z1 – Z15  | Port-side launch (starts logistics belt) |
 | **2** | Z16 – Z30 | Crosses into Bahrah |
 | **3** | Z31 – Z45 | Middle stretch — slum + ad-board concentration |
-| **4** | Z46 – Z60 | Toward Prince Naif |
+| **4** | Z46 – Z60 | Toward Prince Nayef |
 | **5** | Z61 – Z75 | **Haram approach** — Hajj-readiness priority |
 
 ---

@@ -1,4 +1,4 @@
-// 75 km corridor: Jeddah Islamic Port → Bahrah Bridge → Prince Naif Bridge → Masjid Al-Haram
+// 75 km corridor: Jeddah Islamic Port → Bahrah Bridge → Prince Nayef Bridge → Masjid Al-Haram
 // Divided into 75 zones of ~1 km each, grouped into 5 Phases × 15 zones
 // and into 3 geographic sub-stretches (port / middle / haram).
 
@@ -15,7 +15,7 @@ const ROUTE_WAYPOINTS: { km: number; lat: number; lng: number }[] = [
   { km: 30, lat: 21.4380, lng: 39.4970 }, // Bahrah Bridge
   { km: 42, lat: 21.4280, lng: 39.5900 },
   { km: 55, lat: 21.4250, lng: 39.6800 },
-  { km: 64, lat: 21.4220, lng: 39.7430 }, // Prince Naif Bridge
+  { km: 64, lat: 21.4220, lng: 39.7430 }, // Prince Nayef Bridge
   { km: 70, lat: 21.4230, lng: 39.7920 },
   { km: 75, lat: 21.4225, lng: 39.8262 }, // Masjid Al-Haram
 ];
@@ -49,7 +49,7 @@ export const subStretches: SubStretch[] = [
   },
   {
     id: "middle",
-    name: { en: "Bahrah → Prince Naif", ar: "بحرة إلى كبري الأمير نايف" },
+    name: { en: "Bahrah → Prince Nayef", ar: "بحرة إلى كبري الأمير نايف" },
     startKm: 30,
     endKm: 64,
     description: {
@@ -59,7 +59,7 @@ export const subStretches: SubStretch[] = [
   },
   {
     id: "haram",
-    name: { en: "Prince Naif → Holy Mosque", ar: "كبري الأمير نايف إلى الحرم" },
+    name: { en: "Prince Nayef → Holy Mosque", ar: "كبري الأمير نايف إلى الحرم" },
     startKm: 64,
     endKm: 75,
     description: {

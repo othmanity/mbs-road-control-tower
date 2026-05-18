@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Lang } from "../types";
 import { useAuth } from "../auth/AuthContext";
+import ControlTowerIcon from "./ControlTowerIcon";
 
 interface LoginProps {
   lang: Lang;
@@ -46,11 +47,28 @@ export default function Login({ lang, onToggleLang }: LoginProps) {
         <div>
           <div
             style={{
+              width: 64,
+              height: 64,
+              borderRadius: 14,
+              background: "rgba(255,255,255,0.10)",
+              border: "1px solid rgba(255,255,255,0.20)",
+              padding: 8,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              marginBottom: 22,
+            }}
+          >
+            <ControlTowerIcon size={48} variant="mono" />
+          </div>
+          <div
+            style={{
               fontSize: 11,
               letterSpacing: 3,
               textTransform: "uppercase",
               color: "#ACDDC7",
-              marginBottom: 24,
+              marginBottom: 14,
             }}
           >
             {lang === "en"

@@ -33,7 +33,7 @@ The April 2026 ministerial report identified **four root-cause challenges** alon
 
 - **Next Hajj target date:** 2027-05-25
 - Overall corridor is **tracking but behind the ramp** on 4 of 6 KPIs
-- **Highest priority zone:** Z70 (Prince Naif → Holy Mosque approach) — direct pilgrim entry
+- **Highest priority zone:** Z70 (Prince Nayef → Holy Mosque approach) — direct pilgrim entry
 
 ## Top risks (synthesized from PoC findings)
 

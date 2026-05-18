@@ -385,7 +385,7 @@ const Z35_FINDINGS: Finding[] = [
 // =====================================================================
 // ZONE 70 — Haram approach (Phase 5, sub-stretch "haram")
 // Pilgrim-facing; bridge perimeter, inspection-point appearance,
-// barriers near Prince Naif. Highest leadership scrutiny pre-Hajj.
+// barriers near Prince Nayef. Highest leadership scrutiny pre-Hajj.
 // =====================================================================
 const Z70_FINDINGS: Finding[] = [
   {
@@ -394,7 +394,7 @@ const Z70_FINDINGS: Finding[] = [
     activityType: "development",
     category: "bridge_perimeter",
     title: {
-      en: "Restore Prince Naif Bridge approach perimeter",
+      en: "Restore Prince Nayef Bridge approach perimeter",
       ar: "إعادة تأهيل حرم مدخل كبري الأمير نايف",
     },
     description: {
@@ -620,10 +620,10 @@ export const assets: AssetPoint[] = [
     ...jitterFromZone(35, 0.004, -0.0005),
   },
 
-  // Zone 70 — Prince Naif bridge approach
+  // Zone 70 — Prince Nayef bridge approach
   {
     id: "A-Z70-bridge", zoneId: 70, type: "bridge",
-    name: { en: "Prince Naif Bridge — approach", ar: "كبري الأمير نايف — المدخل" },
+    name: { en: "Prince Nayef Bridge — approach", ar: "كبري الأمير نايف — المدخل" },
     ...jitterFromZone(70, -0.003, 0),
     status: "in_progress",
   },

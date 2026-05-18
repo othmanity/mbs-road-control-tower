@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T11:45:24.751Z",
+  "generated_at": "2026-05-18T12:42:31.901Z",
   "corridor": {
     "name": {
       "en": "Prince Mohammed bin Salman Road Axis",
@@ -28,7 +28,7 @@
       {
         "id": "middle",
         "name": {
-          "en": "Bahrah → Prince Naif",
+          "en": "Bahrah → Prince Nayef",
           "ar": "بحرة إلى كبري الأمير نايف"
         },
         "start_km": 30,
@@ -41,7 +41,7 @@
       {
         "id": "haram",
         "name": {
-          "en": "Prince Naif → Holy Mosque",
+          "en": "Prince Nayef → Holy Mosque",
           "ar": "كبري الأمير نايف إلى الحرم"
         },
         "start_km": 64,

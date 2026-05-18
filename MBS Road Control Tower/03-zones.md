@@ -81,13 +81,13 @@ The corridor's most visually disorderly stretch: a residential slum cluster sout
 
 **Phase 5 · haram sub-stretch · pilgrim entry**
 
-The most leadership-visible zone on the corridor. Welcomes pilgrims at Prince Naif Bridge with the bridge perimeter, inspection point, and final median planting setting the **first impression of the Makkah experience**.
+The most leadership-visible zone on the corridor. Welcomes pilgrims at Prince Nayef Bridge with the bridge perimeter, inspection point, and final median planting setting the **first impression of the Makkah experience**.
 
 ### Findings
 
 | ID | Type | Title | Status | Severity | Owner |
 |---|---|---|---|---|---|
-| F-Z70-001 | Dev | Restore Prince Naif Bridge approach perimeter | In progress | High | RGA |
+| F-Z70-001 | Dev | Restore Prince Nayef Bridge approach perimeter | In progress | High | RGA |
 | F-Z70-002 | Dev | Replace inspection-point canopy & paint | Open | High | GDT |
 | F-Z70-003 | Dev | Replace 600 m concrete barriers — bridge approach | In progress | High | RGA |
 | F-Z70-004 | Ops | Trash overflow at inspection point | In progress | Medium | HCM |
@@ -100,7 +100,7 @@ The most leadership-visible zone on the corridor. Welcomes pilgrims at Prince Na
 **Budget:** SAR **20,750,000** committed · SAR **5,120,000** spent (~25%)
 
 ### Assets in zone
-- Prince Naif Bridge — approach (under perimeter restoration)
+- Prince Nayef Bridge — approach (under perimeter restoration)
 - Pilgrim-Approach Inspection Point
 - Welcome landscaping median (planned)
 

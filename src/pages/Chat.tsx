@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ChatMessage, Lang } from "../types";
+import MarkdownMessage from "../components/MarkdownMessage";
+import ControlTowerIcon from "../components/ControlTowerIcon";
 
 interface ChatProps {
   lang: Lang;
@@ -184,45 +186,52 @@ export default function Chat({ lang }: ChatProps) {
         </div>
 
         {/* Messages */}
-        <div ref={scrollRef} style={{ flex: 1, overflow: "auto", padding: "16px 18px" }}>
-          {messages.map((m) => (
-            <div
-              key={m.id}
-              style={{
-                display: "flex",
-                justifyContent: m.role === "user" ? "flex-end" : "flex-start",
-                marginBottom: 12,
-              }}
-            >
+        <div ref={scrollRef} style={{ flex: 1, overflow: "auto", padding: "18px 20px" }}>
+          {messages.map((m, idx) => {
+            const isAgent = m.role === "agent";
+            const isLast = idx === messages.length - 1;
+            const streaming = busy && isAgent && isLast;
+            const showWaiting = streaming && m.text.length === 0;
+            return (
               <div
+                key={m.id}
                 style={{
-                  maxWidth: "75%",
-                  background: m.role === "user" ? "#066058" : "#F4F6F8",
-                  color: m.role === "user" ? "#fff" : "#212529",
-                  padding: "10px 14px",
-                  borderRadius: 14,
-                  whiteSpace: "pre-wrap",
-                  fontSize: 13,
-                  lineHeight: 1.5,
+                  display: "flex",
+                  flexDirection: isAgent ? "row" : "row-reverse",
+                  alignItems: "flex-start",
+                  gap: 10,
+                  marginBottom: 14,
+                  animation: "fadeInUp 0.25s ease-out",
                 }}
               >
-                {m.text}
-                {busy && m.role === "agent" && m.id === messages[messages.length - 1].id && (
-                  <span
-                    style={{
-                      display: "inline-block",
-                      marginLeft: 4,
-                      width: 6,
-                      height: 14,
-                      background: "#066058",
-                      verticalAlign: "middle",
-                      animation: "pulse 1s ease-in-out infinite",
-                    }}
-                  />
-                )}
+                <Avatar role={m.role} />
+                <div
+                  style={{
+                    maxWidth: "82%",
+                    minWidth: showWaiting ? 60 : undefined,
+                    background: isAgent ? "#fff" : "#066058",
+                    color: isAgent ? "#1a2129" : "#fff",
+                    padding: isAgent ? "12px 16px" : "10px 14px",
+                    borderRadius: isAgent ? "4px 14px 14px 14px" : "14px 4px 14px 14px",
+                    border: isAgent ? "1px solid #E5EBE8" : "none",
+                    boxShadow: isAgent ? "0 1px 2px rgba(16,30,40,0.04)" : "none",
+                    fontSize: 13.5,
+                    lineHeight: 1.55,
+                  }}
+                >
+                  {isAgent ? (
+                    showWaiting ? (
+                      <TypingDots />
+                    ) : (
+                      <MarkdownMessage text={m.text} streaming={streaming} />
+                    )
+                  ) : (
+                    <div style={{ whiteSpace: "pre-wrap" }}>{m.text}</div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Input */}
@@ -325,6 +334,78 @@ export default function Chat({ lang }: ChatProps) {
 }
 
 // ---- helpers ----
+
+function Avatar({ role }: { role: "user" | "agent" }) {
+  if (role === "agent") {
+    return (
+      <div
+        style={{
+          width: 34,
+          height: 34,
+          borderRadius: 9,
+          background: "linear-gradient(135deg, #066058 0%, #144D3F 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          padding: 4,
+          color: "#fff",
+          boxShadow: "0 1px 3px rgba(6,96,88,0.25)",
+        }}
+        aria-label="Control Tower Agent"
+      >
+        <ControlTowerIcon size={26} variant="mono" />
+      </div>
+    );
+  }
+  return (
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: 9,
+        background: "#F0F4F2",
+        color: "#066058",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 13,
+        fontWeight: 700,
+        flexShrink: 0,
+        border: "1px solid #E5EBE8",
+      }}
+      aria-label="You"
+    >
+      ✸
+    </div>
+  );
+}
+
+function TypingDots() {
+  return (
+    <div style={{ display: "flex", gap: 5, alignItems: "center", padding: "4px 4px" }}>
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: "50%",
+            background: "#066058",
+            opacity: 0.4,
+            animation: `typing-bounce 1.2s ease-in-out ${i * 0.18}s infinite`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes typing-bounce {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+          30% { transform: translateY(-4px); opacity: 1; }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 function appendToAgent(
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
