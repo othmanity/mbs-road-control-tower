@@ -1,8 +1,7 @@
 import { useState } from "react";
 import type { Lang } from "../types";
-import { exportControlTowerReport, exportKnowledgeBaseReport } from "../utils/exportReport";
+import { exportControlTowerReport } from "../utils/exportReport";
 import { POC_ZONE_IDS, getZone } from "../data/corridor";
-import { kbQuestions } from "../kb/questions";
 
 interface ReportsProps {
   lang: Lang;
@@ -16,19 +15,6 @@ export default function Reports({ lang }: ReportsProps) {
     setExporting(label);
     try {
       await exportControlTowerReport({ lang, scope });
-    } catch (err) {
-      console.error(err);
-      alert(lang === "en" ? "Export failed" : "فشل التصدير");
-    } finally {
-      setExporting(null);
-    }
-  };
-
-  const handleExportKnowledgeBase = async () => {
-    if (exporting) return;
-    setExporting("kb");
-    try {
-      await exportKnowledgeBaseReport({ lang });
     } catch (err) {
       console.error(err);
       alert(lang === "en" ? "Export failed" : "فشل التصدير");
@@ -93,20 +79,6 @@ export default function Reports({ lang }: ReportsProps) {
           );
         })}
 
-        <ReportCard
-          lang={lang}
-          title={{
-            en: "Knowledge Base report",
-            ar: "تقرير قاعدة المعرفة",
-          }}
-          subtitle={{
-            en: `${kbQuestions.length} Q&A pairs · facts snapshot for the LLM`,
-            ar: `${kbQuestions.length} سؤال وجواب · لقطة الحقائق للنموذج اللغوي`,
-          }}
-          icon="✚"
-          loading={exporting === "kb"}
-          onExport={handleExportKnowledgeBase}
-        />
       </div>
 
       <div
