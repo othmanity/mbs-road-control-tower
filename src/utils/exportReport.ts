@@ -4,7 +4,7 @@ import type { Lang } from "../types";
 import { kpis, daysUntilHajj } from "../data/kpis";
 import { findings } from "../data/findings";
 import { getZone, POC_ZONE_IDS } from "../data/corridor";
-import { getAgency } from "../data/agencies";
+import { getContractor } from "../data/contractors";
 import { kbQuestions, kbCategoryLabels, type KbCategory } from "../kb/questions";
 import { facts } from "../kb/facts";
 
@@ -113,7 +113,7 @@ export async function exportControlTowerReport(opts: { lang: Lang; scope?: "all"
     ]],
     body: scopedFindings.map((f) => {
       const z = getZone(f.zoneId)!;
-      const a = getAgency(f.ownerAgencyId)!;
+      const a = getContractor(f.contractorId)!;
       return [
         f.id,
         lang === "en" ? z.name.en : z.name.ar,
@@ -378,11 +378,11 @@ export async function exportKnowledgeBaseReport(opts: { lang: Lang }) {
   // @ts-expect-error lastAutoTable injected by autoTable
   y = doc.lastAutoTable.finalY + 14;
 
-  // Agencies
+  // Contractors
   autoTable(doc, {
     startY: y,
-    head: [[t("Agency", "الجهة"), t("Scope", "النطاق"), t("Findings", "ملاحظات"), t("Blocked", "متعثرة")]],
-    body: facts.agencies.map((a) => [
+    head: [[t("Contractor", "المقاول"), t("Scope", "النطاق"), t("Findings", "ملاحظات"), t("Blocked", "متعثرة")]],
+    body: facts.contractors.map((a) => [
       `${a.acronym} — ${lang === "en" ? a.name.en : a.name.ar}`,
       lang === "en" ? a.scope.en : a.scope.ar,
       String(a.owned_findings_count),

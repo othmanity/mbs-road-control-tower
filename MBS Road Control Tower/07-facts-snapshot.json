@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T12:42:31.901Z",
+  "generated_at": "2026-05-19T08:41:24.711Z",
   "corridor": {
     "name": {
       "en": "Prince Mohammed bin Salman Road Axis",
@@ -82,10 +82,10 @@
   },
   "hajj_readiness": {
     "next_hajj_date": "2027-05-25",
-    "days_remaining": 372,
+    "days_remaining": 371,
     "on_track": false,
-    "summary_en": "372 days until Hajj 2027-05-25. Average 2027-KPI progress is 36% of target — corridor is behind the ramp.",
-    "summary_ar": "372 يوماً حتى الحج 2027-05-25. متوسط تقدّم مستهدفات 2027 يبلغ 36% من المستهدف — المحور متأخر عن المسار."
+    "summary_en": "371 days until Hajj 2027-05-25. Average 2027-KPI progress is 36% of target — corridor is behind the ramp.",
+    "summary_ar": "371 يوماً حتى الحج 2027-05-25. متوسط تقدّم مستهدفات 2027 يبلغ 36% من المستهدف — المحور متأخر عن المسار."
   },
   "kpis": [
     {
@@ -161,7 +161,7 @@
       "category": "greenery"
     }
   ],
-  "agencies": [
+  "contractors": [
     {
       "id": "momah",
       "acronym": "MoMAH",
@@ -173,8 +173,16 @@
         "en": "Governance owner, standards, policy",
         "ar": "المالك الحوكمي، المعايير، السياسات"
       },
+      "kind": "government",
+      "contract_value_sar": 0,
+      "on_time_pct": 100,
+      "quality_score": 100,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 0,
+      "escalations_count": 0,
       "owned_findings_count": 0,
-      "blocked_findings_count": 0
+      "blocked_findings_count": 0,
+      "composite_score": 100
     },
     {
       "id": "holy_capital",
@@ -184,11 +192,19 @@
         "ar": "أمانة العاصمة المقدسة (مكة)"
       },
       "scope": {
-        "en": "Operates the Makkah-side stretch",
-        "ar": "تشغيل القطاع المتجه إلى مكة"
+        "en": "Operates the Makkah-side stretch (in-house crews)",
+        "ar": "تشغيل القطاع المتجه إلى مكة بطواقم داخلية"
       },
-      "owned_findings_count": 8,
-      "blocked_findings_count": 1
+      "kind": "government",
+      "contract_value_sar": 9400000,
+      "on_time_pct": 81,
+      "quality_score": 82,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 1,
+      "escalations_count": 1,
+      "owned_findings_count": 3,
+      "blocked_findings_count": 1,
+      "composite_score": 85
     },
     {
       "id": "jeddah_muni",
@@ -198,11 +214,19 @@
         "ar": "أمانة جدة"
       },
       "scope": {
-        "en": "Operates the Jeddah-side stretch",
-        "ar": "تشغيل القطاع المتجه إلى جدة"
+        "en": "Operates the Jeddah-side stretch (in-house crews)",
+        "ar": "تشغيل القطاع المتجه إلى جدة بطواقم داخلية"
       },
-      "owned_findings_count": 3,
-      "blocked_findings_count": 0
+      "kind": "government",
+      "contract_value_sar": 6200000,
+      "on_time_pct": 76,
+      "quality_score": 79,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 1,
+      "escalations_count": 0,
+      "owned_findings_count": 1,
+      "blocked_findings_count": 0,
+      "composite_score": 82
     },
     {
       "id": "roads_general",
@@ -212,11 +236,19 @@
         "ar": "الهيئة العامة للطرق"
       },
       "scope": {
-        "en": "Asphalt, bridges, road safety",
-        "ar": "السفلتة، الجسور، السلامة المرورية"
+        "en": "Asphalt, bridges, road safety (internal program)",
+        "ar": "السفلتة، الجسور، السلامة المرورية (برنامج داخلي)"
       },
-      "owned_findings_count": 8,
-      "blocked_findings_count": 1
+      "kind": "government",
+      "contract_value_sar": 11800000,
+      "on_time_pct": 58,
+      "quality_score": 78,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 3,
+      "escalations_count": 2,
+      "owned_findings_count": 3,
+      "blocked_findings_count": 1,
+      "composite_score": 71
     },
     {
       "id": "traffic_dept",
@@ -229,8 +261,16 @@
         "en": "Traffic flow, inspection points",
         "ar": "حركة المرور، نقاط التفتيش"
       },
+      "kind": "government",
+      "contract_value_sar": 1750000,
+      "on_time_pct": 70,
+      "quality_score": 84,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 1,
+      "escalations_count": 0,
       "owned_findings_count": 1,
-      "blocked_findings_count": 0
+      "blocked_findings_count": 0,
+      "composite_score": 81
     },
     {
       "id": "civil_defense",
@@ -243,24 +283,293 @@
         "en": "Emergency, safety inspections",
         "ar": "الطوارئ، تفتيش السلامة"
       },
+      "kind": "government",
+      "contract_value_sar": 0,
+      "on_time_pct": 100,
+      "quality_score": 95,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 0,
+      "escalations_count": 0,
       "owned_findings_count": 1,
-      "blocked_findings_count": 0
+      "blocked_findings_count": 0,
+      "composite_score": 99
     },
     {
-      "id": "investment",
-      "acronym": "PIF/PPP",
+      "id": "arc",
+      "acronym": "ARC",
       "name": {
-        "en": "Private-Sector Investment Partner",
-        "ar": "شريك استثمار من القطاع الخاص"
+        "en": "Al-Rajhi Construction Co.",
+        "ar": "شركة الراجحي للإنشاءات"
       },
       "scope": {
-        "en": "Greenery, ad-board concessions, fuel/service plots",
-        "ar": "تشجير، امتياز اللوحات، محطات الوقود"
+        "en": "Heavy civil works — demolition, asphalt overlay, barrier replacement",
+        "ar": "أعمال مدنية ثقيلة — هدم، سفلتة، استبدال الحواجز"
       },
+      "kind": "private",
+      "contract_value_sar": 22500000,
+      "on_time_pct": 64,
+      "quality_score": 73,
+      "fines_ytd_sar": 450000,
+      "late_findings_count": 2,
+      "escalations_count": 2,
+      "owned_findings_count": 4,
+      "blocked_findings_count": 0,
+      "composite_score": 56
+    },
+    {
+      "id": "sbg",
+      "acronym": "SBG",
+      "name": {
+        "en": "Saudi Binladin Group",
+        "ar": "مجموعة بن لادن السعودية"
+      },
+      "scope": {
+        "en": "Bridge restoration, structural and pilgrim-approach works",
+        "ar": "ترميم الجسور، الأعمال الإنشائية، تطوير مداخل الحجاج"
+      },
+      "kind": "private",
+      "contract_value_sar": 14800000,
+      "on_time_pct": 71,
+      "quality_score": 92,
+      "fines_ytd_sar": 180000,
+      "late_findings_count": 1,
+      "escalations_count": 1,
+      "owned_findings_count": 3,
+      "blocked_findings_count": 0,
+      "composite_score": 77
+    },
+    {
+      "id": "maas",
+      "acronym": "MAAS",
+      "name": {
+        "en": "MA'AS Services",
+        "ar": "ماس للخدمات"
+      },
+      "scope": {
+        "en": "Daily operations — refuse, signage, graffiti cleanup, ad-board take-downs",
+        "ar": "العمليات اليومية — النفايات، اللافتات، إزالة الكتابات، إزالة اللوحات"
+      },
+      "kind": "private",
+      "contract_value_sar": 8500000,
+      "on_time_pct": 94,
+      "quality_score": 88,
+      "fines_ytd_sar": 25000,
+      "late_findings_count": 0,
+      "escalations_count": 0,
       "owned_findings_count": 5,
-      "blocked_findings_count": 0
+      "blocked_findings_count": 0,
+      "composite_score": 93
+    },
+    {
+      "id": "tip",
+      "acronym": "TIP",
+      "name": {
+        "en": "Tatweer Investment Partner",
+        "ar": "شريك تطوير الاستثمار"
+      },
+      "scope": {
+        "en": "Ad-board concessions, fuel-station rebuild, greenery program (PPP)",
+        "ar": "امتيازات اللوحات، إعادة بناء محطات الوقود، برنامج التشجير (شراكة)"
+      },
+      "kind": "private",
+      "contract_value_sar": 18900000,
+      "on_time_pct": 52,
+      "quality_score": 76,
+      "fines_ytd_sar": 320000,
+      "late_findings_count": 3,
+      "escalations_count": 1,
+      "owned_findings_count": 5,
+      "blocked_findings_count": 0,
+      "composite_score": 55
     }
   ],
+  "vendor_performance": {
+    "total_corridor_contract_value_sar": 93850000,
+    "best_overall": {
+      "id": "momah",
+      "acronym": "MoMAH",
+      "name": {
+        "en": "Ministry of Municipalities & Housing",
+        "ar": "وزارة البلديات والإسكان"
+      },
+      "scope": {
+        "en": "Governance owner, standards, policy",
+        "ar": "المالك الحوكمي، المعايير، السياسات"
+      },
+      "kind": "government",
+      "contract_value_sar": 0,
+      "on_time_pct": 100,
+      "quality_score": 100,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 0,
+      "escalations_count": 0,
+      "owned_findings_count": 0,
+      "blocked_findings_count": 0,
+      "composite_score": 100
+    },
+    "worst_overall": {
+      "id": "tip",
+      "acronym": "TIP",
+      "name": {
+        "en": "Tatweer Investment Partner",
+        "ar": "شريك تطوير الاستثمار"
+      },
+      "scope": {
+        "en": "Ad-board concessions, fuel-station rebuild, greenery program (PPP)",
+        "ar": "امتيازات اللوحات، إعادة بناء محطات الوقود، برنامج التشجير (شراكة)"
+      },
+      "kind": "private",
+      "contract_value_sar": 18900000,
+      "on_time_pct": 52,
+      "quality_score": 76,
+      "fines_ytd_sar": 320000,
+      "late_findings_count": 3,
+      "escalations_count": 1,
+      "owned_findings_count": 5,
+      "blocked_findings_count": 0,
+      "composite_score": 55
+    },
+    "most_fined": {
+      "id": "arc",
+      "acronym": "ARC",
+      "name": {
+        "en": "Al-Rajhi Construction Co.",
+        "ar": "شركة الراجحي للإنشاءات"
+      },
+      "scope": {
+        "en": "Heavy civil works — demolition, asphalt overlay, barrier replacement",
+        "ar": "أعمال مدنية ثقيلة — هدم، سفلتة، استبدال الحواجز"
+      },
+      "kind": "private",
+      "contract_value_sar": 22500000,
+      "on_time_pct": 64,
+      "quality_score": 73,
+      "fines_ytd_sar": 450000,
+      "late_findings_count": 2,
+      "escalations_count": 2,
+      "owned_findings_count": 4,
+      "blocked_findings_count": 0,
+      "composite_score": 56
+    },
+    "most_late": {
+      "id": "roads_general",
+      "acronym": "RGA",
+      "name": {
+        "en": "Roads General Authority",
+        "ar": "الهيئة العامة للطرق"
+      },
+      "scope": {
+        "en": "Asphalt, bridges, road safety (internal program)",
+        "ar": "السفلتة، الجسور، السلامة المرورية (برنامج داخلي)"
+      },
+      "kind": "government",
+      "contract_value_sar": 11800000,
+      "on_time_pct": 58,
+      "quality_score": 78,
+      "fines_ytd_sar": 0,
+      "late_findings_count": 3,
+      "escalations_count": 2,
+      "owned_findings_count": 3,
+      "blocked_findings_count": 1,
+      "composite_score": 71
+    },
+    "highest_quality": {
+      "id": "sbg",
+      "acronym": "SBG",
+      "name": {
+        "en": "Saudi Binladin Group",
+        "ar": "مجموعة بن لادن السعودية"
+      },
+      "scope": {
+        "en": "Bridge restoration, structural and pilgrim-approach works",
+        "ar": "ترميم الجسور، الأعمال الإنشائية، تطوير مداخل الحجاج"
+      },
+      "kind": "private",
+      "contract_value_sar": 14800000,
+      "on_time_pct": 71,
+      "quality_score": 92,
+      "fines_ytd_sar": 180000,
+      "late_findings_count": 1,
+      "escalations_count": 1,
+      "owned_findings_count": 3,
+      "blocked_findings_count": 0,
+      "composite_score": 77
+    },
+    "largest_contract": {
+      "id": "arc",
+      "acronym": "ARC",
+      "name": {
+        "en": "Al-Rajhi Construction Co.",
+        "ar": "شركة الراجحي للإنشاءات"
+      },
+      "scope": {
+        "en": "Heavy civil works — demolition, asphalt overlay, barrier replacement",
+        "ar": "أعمال مدنية ثقيلة — هدم، سفلتة، استبدال الحواجز"
+      },
+      "kind": "private",
+      "contract_value_sar": 22500000,
+      "on_time_pct": 64,
+      "quality_score": 73,
+      "fines_ytd_sar": 450000,
+      "late_findings_count": 2,
+      "escalations_count": 2,
+      "owned_findings_count": 4,
+      "blocked_findings_count": 0,
+      "composite_score": 56
+    },
+    "ranked_by_composite": [
+      {
+        "id": "momah",
+        "acronym": "MoMAH",
+        "composite_score": 100
+      },
+      {
+        "id": "civil_defense",
+        "acronym": "GDCD",
+        "composite_score": 99
+      },
+      {
+        "id": "maas",
+        "acronym": "MAAS",
+        "composite_score": 93
+      },
+      {
+        "id": "holy_capital",
+        "acronym": "HCM",
+        "composite_score": 85
+      },
+      {
+        "id": "jeddah_muni",
+        "acronym": "JM",
+        "composite_score": 82
+      },
+      {
+        "id": "traffic_dept",
+        "acronym": "GDT",
+        "composite_score": 81
+      },
+      {
+        "id": "sbg",
+        "acronym": "SBG",
+        "composite_score": 77
+      },
+      {
+        "id": "roads_general",
+        "acronym": "RGA",
+        "composite_score": 71
+      },
+      {
+        "id": "arc",
+        "acronym": "ARC",
+        "composite_score": 56
+      },
+      {
+        "id": "tip",
+        "acronym": "TIP",
+        "composite_score": 55
+      }
+    ]
+  },
   "poc_zones": [
     {
       "id": 8,
@@ -282,11 +591,13 @@
       "operational_count": 4,
       "budget_committed_sar": 15450000,
       "budget_spent_sar": 4990000,
-      "owner_agencies": [
+      "contractors": [
+        "ARC",
+        "MAAS",
         "JM",
         "RGA",
         "GDCD",
-        "PIF/PPP"
+        "TIP"
       ],
       "asset_count_by_type": {
         "service_center": 1,
@@ -316,9 +627,11 @@
       "operational_count": 5,
       "budget_committed_sar": 31200000,
       "budget_spent_sar": 4200000,
-      "owner_agencies": [
+      "contractors": [
+        "ARC",
+        "TIP",
+        "MAAS",
         "HCM",
-        "PIF/PPP",
         "RGA"
       ],
       "asset_count_by_type": {
@@ -349,11 +662,13 @@
       "operational_count": 5,
       "budget_committed_sar": 20750000,
       "budget_spent_sar": 5120000,
-      "owner_agencies": [
-        "RGA",
+      "contractors": [
+        "SBG",
         "GDT",
-        "HCM",
-        "PIF/PPP"
+        "MAAS",
+        "RGA",
+        "TIP",
+        "HCM"
       ],
       "asset_count_by_type": {
         "bridge": 1,
@@ -393,12 +708,15 @@
       "done": 2,
       "blocked": 2
     },
-    "by_agency": {
-      "JM": 3,
-      "RGA": 8,
+    "by_contractor": {
+      "ARC": 4,
+      "MAAS": 5,
+      "JM": 1,
+      "RGA": 3,
       "GDCD": 1,
-      "PIF/PPP": 5,
-      "HCM": 8,
+      "TIP": 5,
+      "HCM": 3,
+      "SBG": 3,
       "GDT": 1
     },
     "by_zone": {
@@ -412,7 +730,7 @@
         "zone_id": 35,
         "title_en": "Two ad boards leaning post-windstorm",
         "title_ar": "ميلان لوحتين إعلانيتين بعد عاصفة الرياح",
-        "owner_acronym": "HCM",
+        "owner_acronym": "MAAS",
         "status": "done",
         "target_date": "2026-04-30",
         "severity": "high"
@@ -442,7 +760,7 @@
         "zone_id": 70,
         "title_en": "Surface cracking — bridge expansion joint",
         "title_ar": "تشقّق سطحي عند فاصل تمدّد الجسر",
-        "owner_acronym": "RGA",
+        "owner_acronym": "SBG",
         "status": "in_progress",
         "target_date": "2026-05-30",
         "severity": "high"

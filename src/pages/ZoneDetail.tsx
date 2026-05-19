@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import type { Lang, ActivityType } from "../types";
 import { getZone, getZonePolyline, POC_ZONE_IDS, zones } from "../data/corridor";
 import { findingsForZone, assetsForZone } from "../data/findings";
-import { getAgency } from "../data/agencies";
+import { getContractor } from "../data/contractors";
 import FindingCard from "../components/FindingCard";
 
 interface ZoneDetailProps {
@@ -44,8 +44,8 @@ export default function ZoneDetail({ lang, zoneId, onChangeZone, onBackToMap }: 
   const totalBudget = findings.reduce((s, f) => s + (f.budgetSAR ?? 0), 0);
   const totalSpent = findings.reduce((s, f) => s + (f.spentSAR ?? 0), 0);
 
-  // Group owner agencies for the chip row
-  const ownerAgencyIds = Array.from(new Set(findings.map((f) => f.ownerAgencyId)));
+  // Group contractors for the chip row
+  const contractorIds = Array.from(new Set(findings.map((f) => f.contractorId)));
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -152,23 +152,23 @@ export default function ZoneDetail({ lang, zoneId, onChangeZone, onBackToMap }: 
           {/* Owner agencies (RACI chips) */}
           <div className="card">
             <div style={{ fontSize: 13, fontWeight: 700, color: "#160F3E", marginBottom: 8 }}>
-              {lang === "en" ? "Agencies involved in this zone" : "الجهات المشاركة في هذا النطاق"}
+              {lang === "en" ? "Contractors on this zone" : "المقاولون في هذا النطاق"}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {ownerAgencyIds.map((id) => {
-                const a = getAgency(id)!;
-                const count = findings.filter((f) => f.ownerAgencyId === id).length;
+              {contractorIds.map((id) => {
+                const c = getContractor(id)!;
+                const count = findings.filter((f) => f.contractorId === id).length;
                 return (
                   <span key={id} className="pill" style={{ background: "#F4F6F8", color: "#066058", fontSize: 11 }}>
-                    {a.acronym} · {count}
+                    {c.acronym} · {count}
                   </span>
                 );
               })}
             </div>
             <div style={{ fontSize: 11, color: "#9DB5AC", marginTop: 8 }}>
               {lang === "en"
-                ? "Overlap is one of the 4 root causes the report calls out (slide 9)."
-                : "تعدد الجهات أحد الأسباب الجذرية الأربعة (شريحة 9)."}
+                ? "Multi-contractor overlap is one of the 4 root causes the report calls out (slide 9)."
+                : "تعدد المقاولين أحد الأسباب الجذرية الأربعة (شريحة 9)."}
             </div>
           </div>
 

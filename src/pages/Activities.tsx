@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { Lang, ActivityType, ActivityStatus } from "../types";
 import { findings } from "../data/findings";
 import { getZone, POC_ZONE_IDS } from "../data/corridor";
-import { getAgency, agencies } from "../data/agencies";
+import { getContractor, contractors } from "../data/contractors";
 import { StatusChip, SeverityChip } from "./Overview";
 
 interface ActivitiesProps {
@@ -14,15 +14,15 @@ export default function Activities({ lang, onOpenZone }: ActivitiesProps) {
   const [activity, setActivity] = useState<ActivityType | "all">("all");
   const [status, setStatus] = useState<ActivityStatus | "all">("all");
   const [zone, setZone] = useState<number | "all">("all");
-  const [agency, setAgency] = useState<string | "all">("all");
+  const [contractor, setContractor] = useState<string | "all">("all");
 
   const rows = useMemo(() => findings.filter((f) => {
     if (activity !== "all" && f.activityType !== activity) return false;
     if (status !== "all" && f.status !== status) return false;
     if (zone !== "all" && f.zoneId !== zone) return false;
-    if (agency !== "all" && f.ownerAgencyId !== agency) return false;
+    if (contractor !== "all" && f.contractorId !== contractor) return false;
     return true;
-  }), [activity, status, zone, agency]);
+  }), [activity, status, zone, contractor]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -83,12 +83,12 @@ export default function Activities({ lang, onOpenZone }: ActivitiesProps) {
           ]}
         />
         <Select
-          label={lang === "en" ? "Owner agency" : "الجهة المالكة"}
-          value={agency}
-          onChange={(v) => setAgency(v)}
+          label={lang === "en" ? "Contractor" : "المقاول"}
+          value={contractor}
+          onChange={(v) => setContractor(v)}
           options={[
-            { value: "all", label: lang === "en" ? "All agencies" : "كل الجهات" },
-            ...agencies.map((a) => ({ value: a.id, label: a.acronym })),
+            { value: "all", label: lang === "en" ? "All contractors" : "كل المقاولين" },
+            ...contractors.map((c) => ({ value: c.id, label: c.acronym })),
           ]}
         />
         <div style={{ alignSelf: "end", textAlign: lang === "ar" ? "left" : "right", fontSize: 12, color: "#595959" }}>
@@ -110,7 +110,7 @@ export default function Activities({ lang, onOpenZone }: ActivitiesProps) {
               <Th>{lang === "en" ? "Title" : "العنوان"}</Th>
               <Th>{lang === "en" ? "Zone" : "النطاق"}</Th>
               <Th>{lang === "en" ? "Type" : "النوع"}</Th>
-              <Th>{lang === "en" ? "Owner" : "المالك"}</Th>
+              <Th>{lang === "en" ? "Contractor" : "المقاول"}</Th>
               <Th>{lang === "en" ? "Status" : "الحالة"}</Th>
               <Th>{lang === "en" ? "Severity" : "الخطورة"}</Th>
               <Th>{lang === "en" ? "Target" : "الموعد"}</Th>
@@ -120,7 +120,7 @@ export default function Activities({ lang, onOpenZone }: ActivitiesProps) {
           <tbody>
             {rows.map((f) => {
               const z = getZone(f.zoneId)!;
-              const a = getAgency(f.ownerAgencyId)!;
+              const a = getContractor(f.contractorId)!;
               return (
                 <tr
                   key={f.id}

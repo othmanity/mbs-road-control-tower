@@ -55,11 +55,30 @@ export interface Zone {
   trafficPerDay: number;      // synthetic
 }
 
-export interface Agency {
+/**
+ * A contractor / vendor on the corridor.
+ *
+ * Some are government internal teams (MoMAH, HCM, JM, RGA, GDT, GDCD);
+ * the rest are private-sector vendors hired to execute the work.
+ * Every contractor carries vendor-performance metrics that leadership
+ * can use to rank them and spot trouble (fines, late items, escalations).
+ */
+export type ContractorKind = "government" | "private";
+
+export interface Contractor {
   id: string;
-  name: Bilingual;
   acronym: string;
+  name: Bilingual;
   scope: Bilingual;
+  kind: ContractorKind;
+
+  // ---- Vendor performance (synthetic for PoC, leadership-facing) ----
+  contractValueSAR: number;  // total value of contracts on this corridor
+  onTimePct: number;         // 0..100 — % of findings closed by target date
+  qualityScore: number;      // 0..100 — composite quality rating
+  finesYTD_SAR: number;      // fines issued year-to-date
+  lateFindingsCount: number; // count of active findings past target
+  escalationsCount: number;  // count of escalations to the joint working room
 }
 
 export interface Finding {
@@ -69,7 +88,7 @@ export interface Finding {
   category: DistortionCategory | "infrastructure" | "service_asset" | "greenery";
   title: Bilingual;
   description: Bilingual;
-  ownerAgencyId: string;
+  contractorId: string;
   status: ActivityStatus;
   openedOn: string;            // ISO date
   targetDate: string;          // ISO date

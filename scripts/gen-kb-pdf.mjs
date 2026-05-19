@@ -30,7 +30,7 @@ const SECTIONS = [
   { file: "01-corridor-overview.md",              title: "Corridor Overview" },
   { file: "02-2027-targets.md",                   title: "2027 Targets" },
   { file: "03-zones.md",                          title: "Zones — PoC Detail" },
-  { file: "04-agencies-and-governance.md",        title: "Agencies & Governance" },
+  { file: "04-contractors-and-governance.md",        title: "Contractors & Governance" },
   { file: "05-activity-types-and-glossary.md",    title: "Activity Types & Glossary" },
   { file: "06-questions-and-answers.md",          title: "Questions & Answers" },
 ];

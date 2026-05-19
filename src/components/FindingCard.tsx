@@ -1,5 +1,5 @@
 import type { Finding, Lang } from "../types";
-import { getAgency } from "../data/agencies";
+import { getContractor } from "../data/contractors";
 import { StatusChip, SeverityChip } from "../pages/Overview";
 
 interface FindingCardProps {
@@ -24,7 +24,7 @@ const CATEGORY_LABEL: Record<string, { en: string; ar: string }> = {
 };
 
 export default function FindingCard({ lang, finding }: FindingCardProps) {
-  const agency = getAgency(finding.ownerAgencyId);
+  const contractor = getContractor(finding.contractorId);
   const cat = CATEGORY_LABEL[finding.category] ?? { en: finding.category, ar: finding.category };
   const isDev = finding.activityType === "development";
   const budgetPct = finding.budgetSAR && finding.spentSAR != null
@@ -92,8 +92,8 @@ export default function FindingCard({ lang, finding }: FindingCardProps) {
           }}
         >
           <Meta
-            label={lang === "en" ? "Owner" : "الجهة المالكة"}
-            value={agency ? `${agency.acronym} · ${lang === "en" ? agency.name.en : agency.name.ar}` : "—"}
+            label={lang === "en" ? "Contractor" : "المقاول"}
+            value={contractor ? `${contractor.acronym} · ${lang === "en" ? contractor.name.en : contractor.name.ar}` : "—"}
           />
           <Meta
             label={lang === "en" ? "Opened" : "تاريخ الفتح"}

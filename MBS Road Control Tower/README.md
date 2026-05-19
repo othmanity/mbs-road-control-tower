@@ -16,8 +16,8 @@
 | **00** | [Executive Summary](00-executive-summary.md) | 1-page leadership view: corridor, KPIs, Hajj readiness, top risks |
 | **01** | [Corridor Overview](01-corridor-overview.md) | The 75 km road, 3 sub-stretches, 5 phases, the strategic case |
 | **02** | [2027 Targets (KPIs)](02-2027-targets.md) | All 6 KPIs with current %, target %, weekly trend, status |
-| **03** | [Zones — PoC Detail](03-zones.md) | Full picture of Zones 8, 35, 70 — findings, budgets, assets, agencies |
-| **04** | [Agencies & Governance](04-agencies-and-governance.md) | The 7 agencies, why governance is a root cause, joint-room proposal |
+| **03** | [Zones — PoC Detail](03-zones.md) | Full picture of Zones 8, 35, 70 — findings, budgets, assets, contractors |
+| **04** | [Contractors & Governance](04-contractors-and-governance.md) | The 10 contractors, why governance is a root cause, joint-room proposal |
 | **05** | [Activity Types & Glossary](05-activity-types-and-glossary.md) | Development vs Operational, distortion categories, key terms |
 | **06** | [Questions & Answers](06-questions-and-answers.md) | 54 bilingual (EN+AR) Q&A pairs grouped by topic |
 | **07** | [Facts Snapshot (JSON)](07-facts-snapshot.json) | Machine-readable single source of truth — feeds the LLM |
@@ -29,7 +29,7 @@
 | Audience | Read first |
 |---|---|
 | **Leadership briefing** | [00-executive-summary.md](00-executive-summary.md) |
-| **Stakeholder review** | [01-corridor-overview.md](01-corridor-overview.md) → [02-2027-targets.md](02-2027-targets.md) → [04-agencies-and-governance.md](04-agencies-and-governance.md) |
+| **Stakeholder review** | [01-corridor-overview.md](01-corridor-overview.md) → [02-2027-targets.md](02-2027-targets.md) → [04-contractors-and-governance.md](04-contractors-and-governance.md) |
 | **Agent / LLM training** | [06-questions-and-answers.md](06-questions-and-answers.md) + [07-facts-snapshot.json](07-facts-snapshot.json) |
 | **Field / operational team** | [03-zones.md](03-zones.md) + [05-activity-types-and-glossary.md](05-activity-types-and-glossary.md) |
 
@@ -44,11 +44,11 @@
 | Zones | **75** (1 km each) |
 | Operational phases | **5** (15 zones each) |
 | Geographic sub-stretches | **3** (Port · Middle · Haram) |
-| Agencies involved | **7** |
+| Contractors involved | **10** |
 | 2027 KPIs tracked | **6** |
 | PoC zones with synthetic data | **Z8, Z35, Z70** |
 | Findings tracked (PoC) | **26** (10 Development · 16 Operational) |
-| Q&A pairs in the KB | **54** (bilingual EN/AR) |
+| Q&A pairs in the KB | **62** (bilingual EN/AR · incl. vendor performance) |
 
 ---
 

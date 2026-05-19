@@ -4,7 +4,7 @@ import CorridorStrip from "../components/CorridorStrip";
 import { kpis, daysUntilHajj, NEXT_HAJJ_DATE_ISO } from "../data/kpis";
 import { findings } from "../data/findings";
 import { getZone, POC_ZONE_IDS } from "../data/corridor";
-import { getAgency } from "../data/agencies";
+import { getContractor } from "../data/contractors";
 
 interface OverviewProps {
   lang: Lang;
@@ -143,7 +143,7 @@ export default function Overview({ lang, onOpenMap, onOpenZone }: OverviewProps)
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
           {blockers.map((f) => {
             const z = getZone(f.zoneId)!;
-            const a = getAgency(f.ownerAgencyId)!;
+            const a = getContractor(f.contractorId)!;
             return (
               <button
                 key={f.id}

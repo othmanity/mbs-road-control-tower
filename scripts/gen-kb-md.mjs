@@ -37,12 +37,14 @@ md += `\n---\n\n`;
 idx = 1;
 for (const [cat, items] of Object.entries(grouped)) {
   const label = kbCategoryLabels[cat];
-  md += `## ${idx}. ${label.en}\n*${label.ar}*\n\n`;
+  md += `## ${idx}. ${label.en}\n\n${label.ar}\n\n`;
   for (const q of items) {
-    md += `### \`${q.id}\` ${q.q_en}\n_${q.q_ar}_\n\n`;
+    // Arabic is written as a plain paragraph (no italics) so Word/Pages
+    // render it cleanly with the document's Complex Script font.
+    md += `### \`${q.id}\` ${q.q_en}\n\n`;
+    md += `${q.q_ar}\n\n`;
     md += `**Answer (EN):** ${q.a_en}\n\n`;
     md += `**Answer (AR):** ${q.a_ar}\n\n`;
-    md += `> _Data refs:_ ${q.data_refs.map((r) => "`" + r + "`").join(", ")}\n\n`;
     md += `---\n\n`;
   }
   idx++;

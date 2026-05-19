@@ -13,7 +13,7 @@ A **75 km strategic link** between Jeddah Islamic Port and Al-Masjid Al-Haram, c
 
 The April 2026 ministerial report identified **four root-cause challenges** along the corridor:
 
-1. **No single supervising authority** — work is split across 7 agencies with overlapping mandates
+1. **No single supervising authority** — work is split across 7 contractors with overlapping mandates
 2. **Visual distortion (تشوه بصري)** — slums, illegal workshops, code-violating fuel stations, damaged ad boards, deteriorated asphalt
 3. **Weak infrastructure** — barriers, bridge perimeters, asphalt, inspection-point quality
 4. **Unused economic opportunity** — vacant municipal land, untapped advertising/concession potential
@@ -40,7 +40,7 @@ The April 2026 ministerial report identified **four root-cause challenges** alon
 1. **Greenery uplift is the slowest-moving KPI** (+1.4% / wk vs. 100% target). Without acceleration, the visual welcome experience for pilgrims will lag.
 2. **Building compliance** is at 22% of a 70% target with only +2.1% weekly momentum.
 3. **Repeat-offender pattern**: workshops in Z8 have been flagged for the 3rd time in the quarter (oil spills). Operational handling is no longer sufficient — needs a development-level intervention (licensing review or demolition).
-4. **Inter-agency hand-offs**: blocked items concentrated in items requiring coordination between RGA (roads) and the municipalities (HCM/JM).
+4. **Inter-contractor hand-offs**: blocked items concentrated in items requiring coordination between RGA (roads) and the municipalities (HCM/JM).
 
 ## Proposed governance fix
 

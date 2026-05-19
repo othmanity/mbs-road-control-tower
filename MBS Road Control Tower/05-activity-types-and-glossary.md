@@ -74,7 +74,7 @@ The 10 distortion manifestations identified in the report (slide 6). Each findin
 | **Operational activity** | نشاط تشغيلي | Day-to-day inspector finding — short cycle, no major budget. |
 | **Repeat offender** | مخالف متكرر | A property / asset flagged for the same finding ≥ 3 times — triggers escalation. |
 | **Blocked** | متعثرة | Work that cannot progress because of an external dependency. The joint working room's first-priority queue. |
-| **Joint working room** | غرفة عمل مشتركة | The proposed multi-agency operations room led by MoMAH (with HCM + JM as core members). |
+| **Joint working room** | غرفة عمل مشتركة | The proposed multi-contractor operations room led by MoMAH (with HCM + JM as core members). |
 | **Hajj-readiness** | جاهزية الحج | Cumulative progress on visible items along the pilgrim approach, anchored to the next Hajj date. |
 | **PoC zone** | نطاق تجريبي | One of {Z8, Z35, Z70} — zones populated with synthetic data for this proof of concept. |
 

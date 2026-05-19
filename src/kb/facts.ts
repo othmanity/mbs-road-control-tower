@@ -9,7 +9,7 @@
 
 import { zones, subStretches, CORRIDOR_TOTAL_KM, POC_ZONE_IDS } from "../data/corridor";
 import { findings, assets } from "../data/findings";
-import { agencies } from "../data/agencies";
+import { contractors } from "../data/contractors";
 import { kpis, daysUntilHajj, NEXT_HAJJ_DATE_ISO } from "../data/kpis";
 
 type Bilingual = { en: string; ar: string };
@@ -54,14 +54,33 @@ export interface FactsSnapshot {
     category: string;
   }>;
 
-  agencies: Array<{
+  contractors: Array<{
     id: string;
     acronym: string;
     name: Bilingual;
     scope: Bilingual;
+    kind: "government" | "private";
+    contract_value_sar: number;
+    on_time_pct: number;
+    quality_score: number;
+    fines_ytd_sar: number;
+    late_findings_count: number;
+    escalations_count: number;
     owned_findings_count: number;
     blocked_findings_count: number;
+    composite_score: number; // weighted summary score 0..100
   }>;
+
+  vendor_performance: {
+    total_corridor_contract_value_sar: number;
+    best_overall: { id: string; acronym: string; composite_score: number };
+    worst_overall: { id: string; acronym: string; composite_score: number };
+    most_fined: { id: string; acronym: string; fines_ytd_sar: number };
+    most_late: { id: string; acronym: string; late_findings_count: number };
+    highest_quality: { id: string; acronym: string; quality_score: number };
+    largest_contract: { id: string; acronym: string; contract_value_sar: number };
+    ranked_by_composite: Array<{ id: string; acronym: string; composite_score: number }>;
+  };
 
   poc_zones: Array<{
     id: number;
@@ -80,7 +99,7 @@ export interface FactsSnapshot {
     operational_count: number;
     budget_committed_sar: number;
     budget_spent_sar: number;
-    owner_agencies: string[];
+    contractors: string[];
     asset_count_by_type: Record<string, number>;
     headline_en: string;
     headline_ar: string;
@@ -96,7 +115,7 @@ export interface FactsSnapshot {
     by_activity_type: { development: number; operational: number };
     by_category: Record<string, number>;
     by_status: Record<string, number>;
-    by_agency: Record<string, number>;
+    by_contractor: Record<string, number>;
     by_zone: Record<string, number>;
     top_blockers: Array<{
       id: string;
@@ -132,6 +151,30 @@ function bucketBy<T, K extends string | number>(arr: T[], key: (x: T) => K): Rec
   }, {});
 }
 
+// Composite vendor score (0..100). Weights chosen so reliability matters most:
+//   on-time (40%) + quality (30%) + (100 - finesSeverity) (20%) + (100 - lateSeverity) (10%)
+function compositeScore(c: {
+  onTimePct: number; qualityScore: number;
+  finesYTD_SAR: number; lateFindingsCount: number;
+  contractValueSAR: number;
+}): number {
+  const finesPenalty = Math.min(100, (c.finesYTD_SAR / 5000) | 0); // every 5k SAR = 1 point
+  const latePenalty = Math.min(100, c.lateFindingsCount * 20);
+  const score =
+    0.40 * c.onTimePct +
+    0.30 * c.qualityScore +
+    0.20 * (100 - finesPenalty) +
+    0.10 * (100 - latePenalty);
+  return Math.round(Math.max(0, Math.min(100, score)));
+}
+
+function pickTop<T extends { id: string; acronym: string }>(arr: T[], score: (x: T) => number): T {
+  return arr.reduce((best, x) => (score(x) > score(best) ? x : best));
+}
+function pickBottom<T extends { id: string; acronym: string }>(arr: T[], score: (x: T) => number): T {
+  return arr.reduce((worst, x) => (score(x) < score(worst) ? x : worst));
+}
+
 export function buildFactsSnapshot(): FactsSnapshot {
   const total = findings.length;
   const open = findings.filter((f) => f.status === "open").length;
@@ -149,7 +192,7 @@ export function buildFactsSnapshot(): FactsSnapshot {
       zone_id: f.zoneId,
       title_en: f.title.en,
       title_ar: f.title.ar,
-      owner_acronym: agencies.find((a) => a.id === f.ownerAgencyId)?.acronym ?? "—",
+      owner_acronym: contractors.find((a) => a.id === f.contractorId)?.acronym ?? "—",
       status: f.status,
       target_date: f.targetDate,
       severity: f.severity,
@@ -158,6 +201,26 @@ export function buildFactsSnapshot(): FactsSnapshot {
   const days = daysUntilHajj();
   const kpiAvg = kpis.reduce((s, k) => s + (k.currentPct / k.targetPct), 0) / kpis.length;
   const onTrackOverall = kpiAvg > 0.5;
+
+  // Vendor performance — composite score, ownership counts, ranking
+  const contractorsWithPerf = contractors.map((c) => ({
+    id: c.id,
+    acronym: c.acronym,
+    name: c.name,
+    scope: c.scope,
+    kind: c.kind,
+    contract_value_sar: c.contractValueSAR,
+    on_time_pct: c.onTimePct,
+    quality_score: c.qualityScore,
+    fines_ytd_sar: c.finesYTD_SAR,
+    late_findings_count: c.lateFindingsCount,
+    escalations_count: c.escalationsCount,
+    owned_findings_count: findings.filter((f) => f.contractorId === c.id).length,
+    blocked_findings_count: findings.filter((f) => f.contractorId === c.id && f.status === "blocked").length,
+    composite_score: compositeScore(c),
+  }));
+  const contractorsRanked = [...contractorsWithPerf].sort((a, b) => b.composite_score - a.composite_score);
+  const totalContractValue = contractorsWithPerf.reduce((s, c) => s + c.contract_value_sar, 0);
 
   return {
     generated_at: new Date().toISOString(),
@@ -205,14 +268,17 @@ export function buildFactsSnapshot(): FactsSnapshot {
       category: k.category,
     })),
 
-    agencies: agencies.map((a) => ({
-      id: a.id,
-      acronym: a.acronym,
-      name: a.name,
-      scope: a.scope,
-      owned_findings_count: findings.filter((f) => f.ownerAgencyId === a.id).length,
-      blocked_findings_count: findings.filter((f) => f.ownerAgencyId === a.id && f.status === "blocked").length,
-    })),
+    contractors: contractorsWithPerf,
+    vendor_performance: {
+      total_corridor_contract_value_sar: totalContractValue,
+      best_overall: pickTop(contractorsWithPerf, (c) => c.composite_score),
+      worst_overall: pickBottom(contractorsRanked.filter((c) => c.contract_value_sar > 0), (c) => c.composite_score),
+      most_fined: pickTop(contractorsWithPerf, (c) => c.fines_ytd_sar),
+      most_late: pickTop(contractorsWithPerf, (c) => c.late_findings_count),
+      highest_quality: pickTop(contractorsRanked.filter((c) => c.contract_value_sar > 0), (c) => c.quality_score),
+      largest_contract: pickTop(contractorsWithPerf, (c) => c.contract_value_sar),
+      ranked_by_composite: contractorsRanked.map((c) => ({ id: c.id, acronym: c.acronym, composite_score: c.composite_score })),
+    },
 
     poc_zones: POC_ZONE_IDS.map((id) => {
       const z = zones.find((zz) => zz.id === id)!;
@@ -235,8 +301,8 @@ export function buildFactsSnapshot(): FactsSnapshot {
         operational_count: fz.filter((f) => f.activityType === "operational").length,
         budget_committed_sar: fz.reduce((s, f) => s + (f.budgetSAR ?? 0), 0),
         budget_spent_sar: fz.reduce((s, f) => s + (f.spentSAR ?? 0), 0),
-        owner_agencies: Array.from(new Set(fz.map((f) => f.ownerAgencyId)))
-          .map((aid) => agencies.find((a) => a.id === aid)?.acronym ?? aid),
+        contractors: Array.from(new Set(fz.map((f) => f.contractorId)))
+          .map((cid) => contractors.find((c) => c.id === cid)?.acronym ?? cid),
         asset_count_by_type: bucketBy(zoneAssets, (a) => a.type),
         headline_en: id === 8
           ? "Workshops belt, asphalt deterioration, damaged median barriers"
@@ -264,7 +330,7 @@ export function buildFactsSnapshot(): FactsSnapshot {
       },
       by_category: bucketBy(findings, (f) => f.category),
       by_status: bucketBy(findings, (f) => f.status),
-      by_agency: bucketBy(findings, (f) => agencies.find((a) => a.id === f.ownerAgencyId)?.acronym ?? f.ownerAgencyId),
+      by_contractor: bucketBy(findings, (f) => contractors.find((c) => c.id === f.contractorId)?.acronym ?? f.contractorId),
       by_zone: bucketBy(findings, (f) => `Z${f.zoneId}`),
       top_blockers: topBlockers,
     },

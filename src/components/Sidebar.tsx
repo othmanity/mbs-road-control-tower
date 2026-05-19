@@ -1,4 +1,13 @@
 import type { Lang } from "../types";
+import type { ComponentType, SVGProps } from "react";
+import {
+  OverviewIcon,
+  MapIcon,
+  ZoneIcon,
+  ActivitiesIcon,
+  ReportsIcon,
+  ChatIcon,
+} from "./Icons";
 
 export type View = "overview" | "map" | "zone" | "activities" | "reports" | "chat";
 
@@ -6,16 +15,16 @@ interface NavItem {
   key: View;
   en: string;
   ar: string;
-  icon: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
 }
 
 const items: NavItem[] = [
-  { key: "overview",   en: "Control Tower", ar: "غرفة العمليات",  icon: "▦" },
-  { key: "map",        en: "Corridor Map",  ar: "خريطة المحور",   icon: "◉" },
-  { key: "zone",       en: "Zone Detail",   ar: "تفاصيل النطاق",  icon: "❐" },
-  { key: "activities", en: "Activities",    ar: "الأنشطة",       icon: "≡" },
-  { key: "reports",    en: "Reports",       ar: "التقارير",      icon: "▤" },
-  { key: "chat",       en: "Ask Control Tower Agent", ar: "اسأل وكيل غرفة العمليات", icon: "✦" },
+  { key: "overview",   en: "Control Tower",            ar: "غرفة العمليات",            Icon: OverviewIcon },
+  { key: "map",        en: "Corridor Map",             ar: "خريطة المحور",             Icon: MapIcon },
+  { key: "zone",       en: "Zone Detail",              ar: "تفاصيل النطاق",            Icon: ZoneIcon },
+  { key: "activities", en: "Activities",               ar: "الأنشطة",                  Icon: ActivitiesIcon },
+  { key: "reports",    en: "Reports",                  ar: "التقارير",                 Icon: ReportsIcon },
+  { key: "chat",       en: "Ask Control Tower Agent",  ar: "اسأل وكيل غرفة العمليات",  Icon: ChatIcon },
 ];
 
 interface SidebarProps {
@@ -50,12 +59,13 @@ export default function Sidebar({ lang, view, onChange }: SidebarProps) {
 
       {items.map((it) => {
         const active = it.key === view;
+        const Icon = it.Icon;
         return (
           <button
             key={it.key}
             onClick={() => onChange(it.key)}
             style={{
-              display: "flex", alignItems: "center", gap: 10,
+              display: "flex", alignItems: "center", gap: 12,
               padding: "10px 12px",
               borderRadius: 8,
               border: "none",
@@ -66,9 +76,27 @@ export default function Sidebar({ lang, view, onChange }: SidebarProps) {
               cursor: "pointer",
               textAlign: lang === "ar" ? "right" : "left",
               fontFamily: "inherit",
+              transition: "background 120ms ease, color 120ms ease",
+            }}
+            onMouseEnter={(e) => {
+              if (!active) e.currentTarget.style.background = "#F4F6F8";
+            }}
+            onMouseLeave={(e) => {
+              if (!active) e.currentTarget.style.background = "transparent";
             }}
           >
-            <span style={{ width: 18, color: active ? "#066058" : "#9DB5AC", fontSize: 14 }}>{it.icon}</span>
+            <span
+              style={{
+                display: "inline-flex",
+                width: 22, height: 22,
+                alignItems: "center",
+                justifyContent: "center",
+                color: active ? "#066058" : "#9DB5AC",
+                flexShrink: 0,
+              }}
+            >
+              <Icon size={18} />
+            </span>
             <span>{lang === "en" ? it.en : it.ar}</span>
           </button>
         );

@@ -73,7 +73,7 @@ The corridor's most visually disorderly stretch: a residential slum cluster sout
 ### What leadership should know
 - **Largest development budget of any PoC zone** (SAR 31.2M), but only 13% spent — most work is at procurement / pre-mobilization stage.
 - The slum demolition (F-Z35-001) is the corridor's most stakeholder-sensitive item: requires coordinated relocation with social services.
-- HCM owns most of this zone's items (6 of 9) — clear single-agency accountability.
+- HCM owns most of this zone's items (6 of 9) — clear single-contractor accountability.
 
 ---
 
@@ -125,4 +125,4 @@ The most leadership-visible zone on the corridor. Welcomes pilgrims at Prince Na
 | Budget committed (SAR) | 15.45 M | 31.20 M | 20.75 M | **67.40 M** |
 | Budget spent (SAR) | 4.99 M | 4.20 M | 5.12 M | **14.31 M** |
 
-→ Continue to [04 · Agencies & Governance](04-agencies-and-governance.md)
+→ Continue to [04 · Contractors & Governance](04-contractors-and-governance.md)
