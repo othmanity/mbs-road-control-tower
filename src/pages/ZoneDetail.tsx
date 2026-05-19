@@ -111,7 +111,7 @@ export default function ZoneDetail({ lang, zoneId, onChangeZone, onBackToMap }: 
         </div>
       </div>
 
-      {/* Main 2-column: map left, agencies + budget right */}
+      {/* Main 2-column: map left, contractors + budget right */}
       <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 16 }}>
         {/* Mini-map for the zone */}
         <div
@@ -149,7 +149,7 @@ export default function ZoneDetail({ lang, zoneId, onChangeZone, onBackToMap }: 
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {/* Owner agencies (RACI chips) */}
+          {/* Contractors (RACI chips) */}
           <div className="card">
             <div style={{ fontSize: 13, fontWeight: 700, color: "#160F3E", marginBottom: 8 }}>
               {lang === "en" ? "Contractors on this zone" : "المقاولون في هذا النطاق"}

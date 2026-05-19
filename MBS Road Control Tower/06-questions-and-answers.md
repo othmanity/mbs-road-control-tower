@@ -283,7 +283,7 @@
 
 ماذا يعني وصف ‘متعثرة’ تشغيلياً؟
 
-**Answer (EN):** Work that cannot progress because of an external dependency (e.g., utility contractor not responding, owner notice unresolved, agency hand-off pending). These are the items the joint working room escalates first.
+**Answer (EN):** Work that cannot progress because of an external dependency (e.g., utility contractor not responding, owner notice unresolved, contractor hand-off pending). These are the items the joint working room escalates first.
 
 **Answer (AR):** أعمال لا يمكن تقدّمها بسبب اعتماد خارجي (مثل: مقاول مرافق غير مستجيب، إنذار مالك لم يُحل، انتقال صلاحيات بين الجهات معلق). هذه أولى البنود في غرفة العمل المشتركة للتصعيد.
 
@@ -297,7 +297,7 @@
 
 ما الوضع في النطاق 8؟
 
-**Answer (EN):** Phase 1, port stretch, high distortion density. Workshops belt with damaged median barriers and asphalt deterioration. Multiple agencies involved (JM, RGA, GDCD, Investment).
+**Answer (EN):** Phase 1, port stretch, high distortion density. Workshops belt with damaged median barriers and asphalt deterioration. Multiple contractors involved (ARC, JM, RGA, GDCD, MAAS, TIP).
 
 **Answer (AR):** المرحلة 1، قطاع الميناء، كثافة تشوه عالية. حزام ورش مع حواجز جزيرة وسطية متهالكة وتدهور سفلتة. عدة جهات مشاركة (JM, RGA, GDCD, Investment).
 

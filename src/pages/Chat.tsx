@@ -10,24 +10,28 @@ interface ChatProps {
 // Suggested questions — same ones we seed the KB with
 const SUGGESTED: { en: string; ar: string }[] = [
   {
-    en: "How many open findings does Zone 70 (pilgrim approach) have right now?",
-    ar: "كم عدد الملاحظات المفتوحة حالياً في النطاق 70 (مدخل الحجاج)؟",
+    en: "Which contractor should we be most worried about and why?",
+    ar: "أي مقاول يجب أن نقلق منه أكثر ولماذا؟",
   },
   {
-    en: "Which agency owns the most blocked items?",
-    ar: "أي جهة لديها أكبر عدد من الملاحظات المتعثرة؟",
+    en: "Who is our best-performing vendor overall?",
+    ar: "من هو أفضل مقاول من حيث الأداء بشكل عام؟",
+  },
+  {
+    en: "Which contractor has the most fines this year?",
+    ar: "أي مقاول لديه أكبر مبلغ غرامات هذا العام؟",
+  },
+  {
+    en: "How many open findings does Zone 70 (pilgrim approach) have right now?",
+    ar: "كم عدد الملاحظات المفتوحة حالياً في النطاق 70 (مدخل الحجاج)؟",
   },
   {
     en: "What is our progress against the 90% damaged-barrier-repair target?",
     ar: "ما تقدّمنا تجاه مستهدف إصلاح الحواجز المتهالكة 90%؟",
   },
   {
-    en: "Which findings in the PoC zones are at high severity and still open?",
-    ar: "ما الملاحظات عالية الخطورة وما زالت مفتوحة في نطاقات التجربة؟",
-  },
-  {
-    en: "How much development budget is committed in Zone 35 (slum + ad cluster)?",
-    ar: "كم حجم ميزانية التطوير الملتزم بها في النطاق 35 (العشوائيات واللوحات)؟",
+    en: "Which contractor has the most blocked items?",
+    ar: "أي مقاول لديه أكبر عدد من الملاحظات المتعثرة؟",
   },
 ];
 
